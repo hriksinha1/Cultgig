@@ -1,39 +1,28 @@
-# CultGig Landing Page — PRD
+# CultGig — PRD
 
 ## Original Problem Statement
-Build a full, modern, single-page responsive 3D landing page for "CultGig" — a talent marketplace platform connecting artists/freelancers with businesses/venues.
+Build a full, modern, single-page responsive 3D landing page for CultGig, then extend with multi-page routing.
 
 ## Architecture
-- **Frontend**: React 19, Tailwind CSS 3, Framer Motion, Three.js (vanilla), Shadcn/UI
-- **Backend**: Node.js + Express.js + Mongoose (port 5000), proxied through FastAPI (port 8001, platform requirement)
-- **Database**: MongoDB (local, `cultgigDB`)
-- **3D**: Vanilla Three.js with UnrealBloom post-processing
+- Frontend: React 19, Tailwind CSS 3, React Router DOM v6, Framer Motion, Three.js, Shadcn/UI
+- Backend: Node.js + Express.js + Mongoose (port 5000), proxied through FastAPI (port 8001)
+- Database: MongoDB (local, cultgigDB)
 
-## User Personas
-1. **Artists/Creators** — Musicians, photographers, comedians looking for gig opportunities
-2. **Businesses/Venues** — Restaurants, cafés, hotels, event organizers looking to hire talent
-
-## Core Requirements
-- 3D animated hero section with neon glow aesthetic
-- Waitlist signup form with name, email, WhatsApp, role
-- Center-aligned hero layout
-- Dark theme with #EAFF00 accent
-- Syne + Satoshi typography
-
-## What's Been Implemented (April 2025)
-- [x] 3D Hero with vanilla Three.js (microphone, camera, notes, particles, bloom)
+## What's Been Implemented
+- [x] 3D Hero with vanilla Three.js + Bloom
 - [x] Center-aligned hero section
-- [x] Sticky navbar with mobile hamburger
-- [x] Features section (2-column: Artists vs Businesses)
-- [x] How It Works with Shadcn Tabs
-- [x] App Download section with phone mockup
-- [x] Waitlist form with WhatsApp field + API integration
-- [x] Node.js Express Mongoose backend
-- [x] Email validation, duplicate detection (409)
-- [x] Footer with social links
-- [x] README.md
+- [x] 10 pages with React Router v6
+- [x] Active NavLink highlighting in #EAFF00
+- [x] ScrollToTop on route change
+- [x] 4-column footer with all navigation links
+- [x] Waitlist form with WhatsApp + API integration
+- [x] Node.js Express Mongoose backend with validation
+- [x] Contact form (frontend-only)
+- [x] Privacy Policy & Terms of Service pages with sidebar nav
+- [x] FAQ accordion on How It Works page
+- [x] Mock artist/business profiles
+- [x] README.md with full documentation
 
 ## Backlog
-- P0: None remaining
-- P1: Connect to production MongoDB Atlas, add rate limiting
-- P2: Add testimonials/social proof section, analytics tracking
+- P1: Production MongoDB Atlas, rate limiting, SEO meta tags
+- P2: Testimonials section, analytics/tracking, image optimization
