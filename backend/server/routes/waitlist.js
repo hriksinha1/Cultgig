@@ -16,6 +16,23 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid email address',
+      });
+    }
+
+    // Validate role is allowed
+    if (!['artist', 'business'].includes(role)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Role must be "artist" or "business"',
+      });
+    }
+
     // Check if email already exists
     const existing = await Waitlist.findOne({ email: email.toLowerCase().trim() });
     if (existing) {

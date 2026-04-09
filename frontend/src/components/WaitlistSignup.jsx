@@ -28,15 +28,23 @@ export default function WaitlistSignup() {
         body: JSON.stringify({ name, email, whatsapp, role }),
       });
 
-      const data = await res.json();
+      // Check status BEFORE parsing body to avoid json parse errors
+      const statusCode = res.status;
 
-      if (res.status === 201 && data.success) {
+      let data = {};
+      try {
+        data = await res.json();
+      } catch (parseErr) {
+        // Ignore JSON parse errors — use status code only
+      }
+
+      if (statusCode === 201 && data.success) {
         setStatus('success');
         setName('');
         setEmail('');
         setWhatsapp('');
         setRole('');
-      } else if (res.status === 409) {
+      } else if (statusCode === 409) {
         setStatus('duplicate');
       } else {
         setStatus('error');
