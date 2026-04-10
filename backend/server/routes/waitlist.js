@@ -7,9 +7,13 @@ const Waitlist = require('../models/Waitlist');
 router.post('/', async (req, res) => {
   try {
     const { name, email, whatsapp, role } = req.body;
+    const normalizedName = typeof name === 'string' ? name.trim() : '';
+    const normalizedEmail = typeof email === 'string' ? email.toLowerCase().trim() : '';
+    const normalizedWhatsapp = typeof whatsapp === 'string' ? whatsapp.replace(/\D/g, '').trim() : '';
+    const normalizedRole = typeof role === 'string' ? role.trim() : '';
 
     // Validate all fields are present
-    if (!name || !email || !whatsapp || !role) {
+    if (!normalizedName || !normalizedEmail || !normalizedWhatsapp || !normalizedRole) {
       return res.status(400).json({
         success: false,
         message: 'All fields are required',
@@ -18,15 +22,24 @@ router.post('/', async (req, res) => {
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(normalizedEmail)) {
       return res.status(400).json({
         success: false,
         message: 'Please enter a valid email address',
       });
     }
 
+    // Validate phone is exactly 10 digits
+    const mobileRegex = /^\d{10}$/;
+    if (!mobileRegex.test(normalizedWhatsapp)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please enter a valid 10-digit mobile number',
+      });
+    }
+
     // Validate role is allowed
-    if (!['artist', 'business'].includes(role)) {
+    if (!['artist', 'business'].includes(normalizedRole)) {
       return res.status(400).json({
         success: false,
         message: 'Role must be "artist" or "business"',
@@ -34,7 +47,7 @@ router.post('/', async (req, res) => {
     }
 
     // Check if email already exists
-    const existing = await Waitlist.findOne({ email: email.toLowerCase().trim() });
+    const existing = await Waitlist.findOne({ email: normalizedEmail });
     if (existing) {
       return res.status(409).json({
         success: false,
@@ -43,7 +56,12 @@ router.post('/', async (req, res) => {
     }
 
     // Save new waitlist entry
-    const entry = new Waitlist({ name, email, whatsapp, role });
+    const entry = new Waitlist({
+      name: normalizedName,
+      email: normalizedEmail,
+      whatsapp: normalizedWhatsapp,
+      role: normalizedRole,
+    });
     await entry.save();
 
     return res.status(201).json({

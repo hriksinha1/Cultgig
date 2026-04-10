@@ -13,12 +13,13 @@ const waitlistSchema = new mongoose.Schema({
     unique: true,
     trim: true,
     lowercase: true,
+    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please provide a valid email address'],
   },
   whatsapp: {
     type: String,
     required: true,
     trim: true,
-    // Stored as string to preserve leading zeros and country codes (e.g. +91XXXXXXXXXX)
+    match: [/^\d{10}$/, 'Please provide a valid 10-digit mobile number'],
   },
   role: {
     type: String,

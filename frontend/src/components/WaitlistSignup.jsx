@@ -13,19 +13,38 @@ export default function WaitlistSignup() {
   const [role, setRole] = useState('');
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // null | 'success' | 'duplicate' | 'error'
+  const [validationMessage, setValidationMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !email || !whatsapp || !role) return;
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedWhatsapp = whatsapp.replace(/\D/g, '');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const mobileRegex = /^\d{10}$/;
+
+    if (!name || !normalizedEmail || !normalizedWhatsapp || !role) return;
+
+    if (!emailRegex.test(normalizedEmail)) {
+      setStatus('error');
+      setValidationMessage('Please enter a valid email address.');
+      return;
+    }
+
+    if (!mobileRegex.test(normalizedWhatsapp)) {
+      setStatus('error');
+      setValidationMessage('Please enter a valid 10-digit mobile number.');
+      return;
+    }
 
     setLoading(true);
     setStatus(null);
+    setValidationMessage('');
 
     try {
       const res = await fetch(`${BACKEND_URL}/api/waitlist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, whatsapp, role }),
+        body: JSON.stringify({ name, email: normalizedEmail, whatsapp: normalizedWhatsapp, role }),
       });
 
       // Check status BEFORE parsing body to avoid json parse errors
@@ -118,14 +137,14 @@ export default function WaitlistSignup() {
               <Input
                 data-testid="waitlist-whatsapp-input"
                 type="tel"
-                placeholder="+91 XXXXX XXXXX"
+                placeholder="10-digit mobile number"
                 value={whatsapp}
                 onChange={(e) => setWhatsapp(e.target.value)}
                 required
                 className="bg-[#1a1a1a] border-white/20 rounded-lg h-12 px-4 text-white placeholder:text-[#666] focus-visible:ring-[#EAFF00] focus-visible:border-[#EAFF00] font-['Satoshi']"
               />
               <p className="text-xs text-[#666] mt-1.5 ml-1 font-['Satoshi']">
-                Include country code e.g. +91 for India
+                Enter only digits, e.g. 9876543210
               </p>
             </div>
 
@@ -213,7 +232,7 @@ export default function WaitlistSignup() {
                 className="flex items-center justify-center gap-2 mt-6 text-red-400 font-['Satoshi'] text-sm"
               >
                 <XCircle size={18} />
-                Something went wrong. Please try again.
+                {validationMessage || 'Something went wrong. Please try again.'}
               </motion.div>
             )}
           </AnimatePresence>
