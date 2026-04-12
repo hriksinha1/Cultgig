@@ -54,7 +54,9 @@ export default function WaitlistSignup() {
     try {
       const res = await fetch(WAITLIST_ENDPOINT, {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'omit',
         body: JSON.stringify({ name, email: normalizedEmail, whatsapp: normalizedWhatsapp, role }),
       });
 
@@ -104,11 +106,18 @@ export default function WaitlistSignup() {
     } catch (err) {
       if (placeholderTab && !placeholderTab.closed) placeholderTab.close();
       setStatus('error');
-      setValidationMessage(
-        BACKEND_URL
-          ? 'Unable to reach server. Please try again.'
-          : 'Backend URL is not configured. Set REACT_APP_BACKEND_URL in frontend environment variables.'
-      );
+      console.error('[Waitlist Error]', err);
+      
+      // Better error messaging
+      let errorMsg = 'Unable to reach server. Please try again.';
+      if (!BACKEND_URL) {
+        errorMsg = 'Backend URL is not configured. Set REACT_APP_BACKEND_URL in frontend environment variables.';
+      } else if (err instanceof TypeError && err.message.includes('CORS')) {
+        errorMsg = 'CORS error: Backend is blocking this request. Please check server configuration.';
+      } else if (err instanceof TypeError) {
+        errorMsg = 'Network error. Check your internet connection and try again.';
+      }
+      setValidationMessage(errorMsg);
     } finally {
       setLoading(false);
     }
