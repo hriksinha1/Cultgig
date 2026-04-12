@@ -69,7 +69,7 @@ export default function WaitlistPage() {
       let data = {};
       try { data = await res.json(); } catch (e) {}
       if (statusCode === 201 && data.success) {
-        const url = resolveWhatsappInviteUrl(data.inviteUrl, submittedRole);
+        const url = resolveWhatsappInviteUrl(null, submittedRole);
         setInviteLink(url);
         if (url) {
           navigateToWhatsappInvite(url, placeholderTab);
@@ -79,7 +79,7 @@ export default function WaitlistPage() {
         setStatus('success');
         setName(''); setEmail(''); setWhatsapp(''); setRole('');
       } else if (statusCode === 409) {
-        const url = resolveWhatsappInviteUrl(data.inviteUrl, submittedRole);
+        const url = resolveWhatsappInviteUrl(null, submittedRole);
         setInviteLink(url);
         if (url) {
           navigateToWhatsappInvite(url, placeholderTab);
