@@ -9,13 +9,27 @@ const waitlistRoutes = require('./routes/waitlist');
 const app = express();
 
 // Middleware
+const corsOriginConfig = process.env.CORS_ORIGIN;
+const rawAllowedOrigins = corsOriginConfig 
+  ? corsOriginConfig.split(',').map(o => o.trim()).filter(o => o.length > 0)
+  : [];
+
+// If no origins specified, allow all
+const allowedOrigins = rawAllowedOrigins.length > 0 ? rawAllowedOrigins : '*';
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(o => o.trim()) : '*',
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
   optionsSuccessStatus: 200,
 };
+
+// Log CORS configuration for debugging
+console.log('🔐 CORS Configuration:');
+const originDisplay = Array.isArray(allowedOrigins) ? allowedOrigins.join(', ') : allowedOrigins;
+console.log(`   Allowed Origins: ${originDisplay}`);
+console.log(`   Tip: If CORS errors occur, verify REACT_APP_BACKEND_URL in frontend .env matches one of CORS_ORIGIN values in backend .env`);
+
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // handle pre-flight for all routes
 app.use(express.json());
@@ -37,6 +51,25 @@ app.get('/api', (req, res) => {
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'healthy', service: 'CultGig Node.js API', version: '1.0.0' });
+});
+
+// CORS debug endpoint
+app.get('/api/cors-debug', (req, res) => {
+  const origin = req.get('origin');
+  const allowedOrigins = Array.isArray(corsOptions.origin) ? corsOptions.origin : [(corsOptions.origin || '*')];
+  const isOriginAllowed = corsOptions.origin === '*' || allowedOrigins.includes(origin);
+  
+  res.json({
+    corsConfig: {
+      allowedOrigins: allowedOrigins,
+      methods: corsOptions.methods,
+      credentials: corsOptions.credentials,
+      optionsSuccessStatus: corsOptions.optionsSuccessStatus,
+    },
+    requestOrigin: origin || 'none',
+    originAllowed: isOriginAllowed,
+    corsEnabled: true,
+  });
 });
 
 // Start server

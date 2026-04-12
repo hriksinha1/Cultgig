@@ -10,7 +10,7 @@ import {
 } from '../lib/whatsappCommunity';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL?.trim();
-const WAITLIST_ENDPOINT = BACKEND_URL ? `${BACKEND_URL}` : '/api/waitlist';
+const WAITLIST_ENDPOINT = BACKEND_URL ? `${BACKEND_URL}/api/waitlist` : '/api/waitlist';
 
 const stats = [
   { icon: Users, label: 'Artist & creator community', color: 'text-[#EAFF00]' },
