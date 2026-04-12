@@ -9,7 +9,13 @@ const waitlistRoutes = require('./routes/waitlist');
 const app = express();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(o => o.trim()) : '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // handle pre-flight for all routes
 app.use(express.json());
 
 // MongoDB Connection — use local MongoDB (managed by platform)
