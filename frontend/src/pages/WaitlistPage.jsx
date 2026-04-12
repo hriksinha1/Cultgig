@@ -3,7 +3,11 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from '../components/ui/input';
 import { CheckCircle2, Lock, AlertTriangle, XCircle, Loader2, Users, Building2, MapPin, Zap, Gift, Shield } from 'lucide-react';
-import { openWhatsappInviteIfValid } from '../lib/whatsappCommunity';
+import {
+  openWhatsappInvitePlaceholder,
+  resolveWhatsappInviteUrl,
+  navigateToWhatsappInvite,
+} from '../lib/whatsappCommunity';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL?.trim();
 const WAITLIST_ENDPOINT = BACKEND_URL ? `${BACKEND_URL}/api/waitlist` : '/api/waitlist';
@@ -48,6 +52,9 @@ export default function WaitlistPage() {
       setValidationMessage('Please enter a valid 10-digit mobile number.');
       return;
     }
+    const submittedRole = role;
+    const placeholderTab = openWhatsappInvitePlaceholder();
+
     setLoading(true);
     setStatus(null);
     setValidationMessage('');
@@ -62,26 +69,37 @@ export default function WaitlistPage() {
       let data = {};
       try { data = await res.json(); } catch (e) {}
       if (statusCode === 201 && data.success) {
-        const url = data.inviteUrl || null;
+        const url = resolveWhatsappInviteUrl(data.inviteUrl, submittedRole);
         setInviteLink(url);
-        openWhatsappInviteIfValid(url);
+        if (url) {
+          navigateToWhatsappInvite(url, placeholderTab);
+        } else if (placeholderTab && !placeholderTab.closed) {
+          placeholderTab.close();
+        }
         setStatus('success');
         setName(''); setEmail(''); setWhatsapp(''); setRole('');
       } else if (statusCode === 409) {
-        const url = data.inviteUrl || null;
+        const url = resolveWhatsappInviteUrl(data.inviteUrl, submittedRole);
         setInviteLink(url);
-        openWhatsappInviteIfValid(url);
+        if (url) {
+          navigateToWhatsappInvite(url, placeholderTab);
+        } else if (placeholderTab && !placeholderTab.closed) {
+          placeholderTab.close();
+        }
         setStatus('duplicate');
       } else if (statusCode === 400 && data.message) {
+        if (placeholderTab && !placeholderTab.closed) placeholderTab.close();
         setStatus('error');
         setValidationMessage(data.message);
       } else {
+        if (placeholderTab && !placeholderTab.closed) placeholderTab.close();
         setStatus('error');
         if (data.message) {
           setValidationMessage(data.message);
         }
       }
     } catch (err) {
+      if (placeholderTab && !placeholderTab.closed) placeholderTab.close();
       setStatus('error');
       setValidationMessage(
         BACKEND_URL
@@ -182,7 +200,7 @@ export default function WaitlistPage() {
                 className="mt-6 text-center text-[#EAFF00] font-['Satoshi'] text-sm space-y-3">
                 <div className="flex items-center justify-center gap-2">
                   <CheckCircle2 size={18} />
-                  <span>You’re in! Finish joining in WhatsApp (we opened a new tab if allowed).</span>
+                  <span>You’re in! Use the new tab or the link below to open WhatsApp and tap Join group.</span>
                 </div>
                 {inviteLink && (
                   <a href={inviteLink} target="_blank" rel="noopener noreferrer" className="inline-block text-[#EAFF00] underline underline-offset-2 hover:text-white transition-colors">
