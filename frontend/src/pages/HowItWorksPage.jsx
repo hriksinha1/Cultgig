@@ -19,7 +19,7 @@ const businessSteps = [
 ];
 
 const faqs = [
-  { q: 'Is cultgig free to join?', a: 'Yes! Joining the waitlist and creating a profile is completely free. We only charge a small commission on completed bookings.' },
+  { q: 'Is cultgig free to join?', a: 'Yes! Joining our WhatsApp community and creating a profile is completely free. We only charge a small commission on completed bookings.' },
   { q: 'How do payments work?', a: 'Payments are processed securely through our in-app escrow system. The venue pays upfront, and the artist receives the funds after the gig is completed.' },
   { q: 'What types of artists can join?', a: 'Musicians, singers, DJs, photographers, videographers, comedians, spoken word artists, magicians, dancers, and all kinds of live performers and creators.' },
   { q: 'How do I get discovered?', a: 'Complete your profile with high-quality media, collect reviews from past gigs, and keep your availability updated. The more complete your profile, the higher you rank in search.' },

@@ -6,7 +6,7 @@ const timeline = [
   { year: '2024', event: 'Idea born — frustrated by the disconnect between talent and venues' },
   { year: 'Early 2025', event: 'Core team formed — 4 builders with a shared vision' },
   { year: 'Mid 2025', event: 'Beta development begins — first prototypes and user testing' },
-  { year: 'Late 2025', event: 'Waitlist opens — thousands of artists and venues sign up' },
+  { year: 'Late 2025', event: 'WhatsApp communities launch — artists and venues connect early' },
 ];
 
 const team = [

@@ -82,10 +82,10 @@ export default function Hero() {
             </button>
             <button
               data-testid="hero-cta-waitlist"
-              onClick={() => handleScroll('#waitlist')}
+              onClick={() => handleScroll('#whatsapp-community')}
               className="bg-transparent text-white border border-white/20 font-bold px-8 py-4 rounded-lg text-base hover:border-[#EAFF00] hover:text-[#EAFF00] transition-all duration-300 font-['Satoshi']"
             >
-              Join the Waitlist
+              Join WhatsApp community
             </button>
           </motion.div>
 

@@ -64,7 +64,7 @@ export default function Navbar() {
             data-testid="nav-cta-join-waitlist"
             className="bg-[#EAFF00] text-black text-sm font-bold px-6 py-2.5 rounded-full hover:bg-[#d4e600] transition-all duration-300 shadow-[0_0_20px_rgba(234,255,0,0.3)] hover:shadow-[0_0_30px_rgba(234,255,0,0.5)]"
           >
-            Join Waitlist
+            WhatsApp community
           </Link>
         </div>
 
@@ -110,7 +110,7 @@ export default function Navbar() {
                 data-testid="mobile-nav-cta-waitlist"
                 className="text-2xl font-['Syne'] font-bold text-[#EAFF00]"
               >
-                Join Waitlist
+                WhatsApp community
               </Link>
             </motion.div>
           </motion.div>

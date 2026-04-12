@@ -46,7 +46,7 @@ export default function ForArtistsPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
             <Link to="/waitlist" data-testid="artists-hero-cta"
               className="inline-block bg-[#EAFF00] text-black font-bold px-8 py-4 rounded-lg text-base shadow-[0_0_20px_rgba(234,255,0,0.4)] hover:shadow-[0_0_40px_rgba(234,255,0,0.6)] hover:bg-[#d4e600] transition-all duration-300 font-['Satoshi']">
-              Join as an Artist
+              Join artists on WhatsApp
             </Link>
           </motion.div>
         </div>
@@ -129,7 +129,7 @@ export default function ForArtistsPage() {
           <h3 className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-6">Ready to Get Booked?</h3>
           <Link to="/waitlist" data-testid="artists-bottom-cta"
             className="inline-block bg-[#EAFF00] text-black font-bold px-8 py-4 rounded-lg shadow-[0_0_20px_rgba(234,255,0,0.4)] hover:shadow-[0_0_40px_rgba(234,255,0,0.6)] hover:bg-[#d4e600] transition-all duration-300 font-['Satoshi']">
-            Join the Waitlist
+            Join WhatsApp community
           </Link>
         </div>
       </section>

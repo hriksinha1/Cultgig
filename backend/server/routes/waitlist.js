@@ -1,9 +1,21 @@
-// Waitlist API Routes — POST /api/waitlist
+// POST /api/waitlist — stores signup; returns inviteUrl from env:
+//   WHATSAPP_GROUP_ARTIST_URL   — chat.whatsapp.com invite for Artist/Creator
+//   WHATSAPP_GROUP_BUSINESS_URL — chat.whatsapp.com invite for Business/Venue
 const express = require('express');
 const router = express.Router();
 const Waitlist = require('../models/Waitlist');
 
-// POST /api/waitlist — Add user to waitlist
+function inviteUrlForRole(role) {
+  const raw =
+    role === 'business'
+      ? process.env.WHATSAPP_GROUP_BUSINESS_URL
+      : process.env.WHATSAPP_GROUP_ARTIST_URL;
+  if (typeof raw !== 'string') return null;
+  const trimmed = raw.trim();
+  return /^https?:\/\//i.test(trimmed) ? trimmed : null;
+}
+
+// POST /api/waitlist — Save signup and return WhatsApp group invite for role
 router.post('/', async (req, res) => {
   try {
     const { name, email, whatsapp, role } = req.body;
@@ -51,7 +63,8 @@ router.post('/', async (req, res) => {
     if (existing) {
       return res.status(409).json({
         success: false,
-        message: 'Email already registered',
+        message: 'This email is already registered.',
+        inviteUrl: inviteUrlForRole(normalizedRole),
       });
     }
 
@@ -66,7 +79,8 @@ router.post('/', async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      message: "You're on the waitlist!",
+      message: 'Saved! Opening WhatsApp to join your community…',
+      inviteUrl: inviteUrlForRole(normalizedRole),
     });
   } catch (err) {
     console.error('Waitlist error:', err);

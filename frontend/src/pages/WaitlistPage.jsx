@@ -1,22 +1,23 @@
-/* WaitlistPage - /waitlist - Full dedicated waitlist page with stats */
+/* /waitlist — WhatsApp community signup + stats */
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from '../components/ui/input';
 import { CheckCircle2, Lock, AlertTriangle, XCircle, Loader2, Users, Building2, MapPin, Zap, Gift, Shield } from 'lucide-react';
+import { openWhatsappInviteIfValid } from '../lib/whatsappCommunity';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL?.trim();
 const WAITLIST_ENDPOINT = BACKEND_URL ? `${BACKEND_URL}/api/waitlist` : '/api/waitlist';
 
 const stats = [
-  { icon: Users, label: '500+ Artists Joined', color: 'text-[#EAFF00]' },
-  { icon: Building2, label: '120+ Businesses Waiting', color: 'text-[#EAFF00]' },
-  { icon: MapPin, label: '10 Cities at Launch', color: 'text-[#EAFF00]' },
+  { icon: Users, label: 'Artist & creator community', color: 'text-[#EAFF00]' },
+  { icon: Building2, label: 'Venue & business circle', color: 'text-[#EAFF00]' },
+  { icon: MapPin, label: 'Updates & launches', color: 'text-[#EAFF00]' },
 ];
 
 const benefits = [
-  { icon: Zap, title: 'Early Access', desc: 'Be among the first to explore and book on cultgig before the public launch.' },
-  { icon: Gift, title: 'Exclusive Perks', desc: 'Waitlist members get special launch offers, reduced fees, and priority placement.' },
-  { icon: Shield, title: 'Founding Member Badge', desc: 'Stand out with a verified "Early Adopter" badge on your profile forever.' },
+  { icon: Zap, title: 'Real-time updates', desc: 'Hear about features, gigs, and opportunities as soon as we share them in the group.' },
+  { icon: Gift, title: 'The right room', desc: 'Separate WhatsApp spaces for artists/creators and for businesses/venues so conversations stay relevant.' },
+  { icon: Shield, title: 'Still on the list', desc: 'We save your email and number so we can reach you for cultgig news beyond the chat.' },
 ];
 
 export default function WaitlistPage() {
@@ -27,6 +28,7 @@ export default function WaitlistPage() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [validationMessage, setValidationMessage] = useState('');
+  const [inviteLink, setInviteLink] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +51,7 @@ export default function WaitlistPage() {
     setLoading(true);
     setStatus(null);
     setValidationMessage('');
+    setInviteLink(null);
     try {
       const res = await fetch(WAITLIST_ENDPOINT, {
         method: 'POST',
@@ -59,9 +62,15 @@ export default function WaitlistPage() {
       let data = {};
       try { data = await res.json(); } catch (e) {}
       if (statusCode === 201 && data.success) {
+        const url = data.inviteUrl || null;
+        setInviteLink(url);
+        openWhatsappInviteIfValid(url);
         setStatus('success');
         setName(''); setEmail(''); setWhatsapp(''); setRole('');
       } else if (statusCode === 409) {
+        const url = data.inviteUrl || null;
+        setInviteLink(url);
+        openWhatsappInviteIfValid(url);
         setStatus('duplicate');
       } else if (statusCode === 400 && data.message) {
         setStatus('error');
@@ -95,7 +104,7 @@ export default function WaitlistPage() {
             animate={{ opacity: 1, y: 0 }}
             className="font-['Syne'] text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter text-white mb-6"
           >
-            Be First. Be <span className="text-[#EAFF00]">Seen.</span>
+            Join our <span className="text-[#EAFF00]">WhatsApp</span> community
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -103,7 +112,8 @@ export default function WaitlistPage() {
             transition={{ delay: 0.2 }}
             className="text-lg text-[#a0a0a0] font-['Satoshi'] max-w-xl mx-auto"
           >
-            Join the cultgig waitlist and get early access when we launch. No spam. Just the good stuff.
+            Choose Artist/Creator or Business/Venue, enter your WhatsApp number, and we’ll open the
+            matching group invite. We keep your details for cultgig updates too.
           </motion.p>
         </div>
       </section>
@@ -162,21 +172,37 @@ export default function WaitlistPage() {
             <button type="submit" data-testid="wp-submit-btn" disabled={loading || !name || !email || !whatsapp || !role}
               className="w-full bg-[#EAFF00] text-black font-bold py-4 rounded-lg text-base shadow-[0_0_20px_rgba(234,255,0,0.4)] hover:shadow-[0_0_40px_rgba(234,255,0,0.6)] hover:bg-[#d4e600] transition-all duration-300 font-['Satoshi'] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? <span className="flex items-center justify-center gap-2"><Loader2 size={18} className="animate-spin" />Submitting...</span> : 'Join the Waitlist'}
+              {loading ? <span className="flex items-center justify-center gap-2"><Loader2 size={18} className="animate-spin" />Submitting...</span> : 'Join WhatsApp community'}
             </button>
           </form>
 
           <AnimatePresence mode="wait">
             {status === 'success' && (
               <motion.div key="s" data-testid="wp-success" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                className="flex items-center justify-center gap-2 mt-6 text-[#EAFF00] font-['Satoshi'] text-sm">
-                <CheckCircle2 size={18} />You're on the list! We'll reach out on WhatsApp & Email.
+                className="mt-6 text-center text-[#EAFF00] font-['Satoshi'] text-sm space-y-3">
+                <div className="flex items-center justify-center gap-2">
+                  <CheckCircle2 size={18} />
+                  <span>You’re in! Finish joining in WhatsApp (we opened a new tab if allowed).</span>
+                </div>
+                {inviteLink && (
+                  <a href={inviteLink} target="_blank" rel="noopener noreferrer" className="inline-block text-[#EAFF00] underline underline-offset-2 hover:text-white transition-colors">
+                    Open WhatsApp group invite
+                  </a>
+                )}
               </motion.div>
             )}
             {status === 'duplicate' && (
               <motion.div key="d" data-testid="wp-duplicate" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                className="flex items-center justify-center gap-2 mt-6 text-amber-400 font-['Satoshi'] text-sm">
-                <AlertTriangle size={18} />This email is already registered!
+                className="mt-6 text-center text-amber-400 font-['Satoshi'] text-sm space-y-3">
+                <div className="flex items-center justify-center gap-2">
+                  <AlertTriangle size={18} />
+                  <span>This email is already registered — here’s your group link again.</span>
+                </div>
+                {inviteLink && (
+                  <a href={inviteLink} target="_blank" rel="noopener noreferrer" className="inline-block text-amber-400 underline underline-offset-2 hover:text-white transition-colors">
+                    Open WhatsApp group invite
+                  </a>
+                )}
               </motion.div>
             )}
             {status === 'error' && (
@@ -194,7 +220,7 @@ export default function WaitlistPage() {
       <section className="py-16 bg-[#0a0a0a]">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-10 text-center">
-            Why Join <span className="text-[#EAFF00]">Early?</span>
+            Why join the <span className="text-[#EAFF00]">community?</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {benefits.map((b, i) => (

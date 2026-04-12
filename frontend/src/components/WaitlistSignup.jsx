@@ -1,8 +1,9 @@
-/* WaitlistSignup section - Full form with WhatsApp, role toggle, API integration */
+/* Home section: WhatsApp community signup (saved via /api/waitlist) */
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from '../components/ui/input';
 import { CheckCircle2, Lock, AlertTriangle, XCircle, Loader2 } from 'lucide-react';
+import { openWhatsappInviteIfValid } from '../lib/whatsappCommunity';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL?.trim();
 const WAITLIST_ENDPOINT = BACKEND_URL ? `${BACKEND_URL}/api/waitlist` : '/api/waitlist';
@@ -15,6 +16,7 @@ export default function WaitlistSignup() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // null | 'success' | 'duplicate' | 'error'
   const [validationMessage, setValidationMessage] = useState('');
+  const [inviteLink, setInviteLink] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +42,7 @@ export default function WaitlistSignup() {
     setLoading(true);
     setStatus(null);
     setValidationMessage('');
+    setInviteLink(null);
 
     try {
       const res = await fetch(WAITLIST_ENDPOINT, {
@@ -59,12 +62,18 @@ export default function WaitlistSignup() {
       }
 
       if (statusCode === 201 && data.success) {
+        const url = data.inviteUrl || null;
+        setInviteLink(url);
+        openWhatsappInviteIfValid(url);
         setStatus('success');
         setName('');
         setEmail('');
         setWhatsapp('');
         setRole('');
       } else if (statusCode === 409) {
+        const url = data.inviteUrl || null;
+        setInviteLink(url);
+        openWhatsappInviteIfValid(url);
         setStatus('duplicate');
       } else if (statusCode === 400 && data.message) {
         setStatus('error');
@@ -89,7 +98,7 @@ export default function WaitlistSignup() {
 
   return (
     <section
-      id="waitlist"
+      id="whatsapp-community"
       data-testid="waitlist-section"
       className="relative bg-[#0a0a0a] py-24 md:py-32 z-10 border-t border-white/5"
     >
@@ -109,11 +118,11 @@ export default function WaitlistSignup() {
             data-testid="waitlist-headline"
             className="font-['Syne'] text-3xl md:text-5xl tracking-tight font-bold text-white mb-4"
           >
-            Be First. Be <span className="text-[#EAFF00]">Seen.</span>
+            Join our <span className="text-[#EAFF00]">WhatsApp</span> community
           </h2>
           <p className="text-[#a0a0a0] text-lg font-['Satoshi'] leading-relaxed mb-10">
-            Join the cultgig waitlist and get early access when we launch.
-            No spam. Just the good stuff.
+            Pick Artist/Creator or Business/Venue, add your WhatsApp number, and we’ll open the
+            right group invite for you. We’ll also keep your email on file for cultgig updates.
           </p>
 
           {/* Form */}
@@ -201,7 +210,7 @@ export default function WaitlistSignup() {
                   Submitting...
                 </span>
               ) : (
-                'Join the Waitlist'
+                'Join WhatsApp community'
               )}
             </button>
           </form>
@@ -215,10 +224,25 @@ export default function WaitlistSignup() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center justify-center gap-2 mt-6 text-[#EAFF00] font-['Satoshi'] text-sm"
+                className="mt-6 text-center text-[#EAFF00] font-['Satoshi'] text-sm space-y-3"
               >
-                <CheckCircle2 size={18} />
-                You're on the list! We'll reach out on WhatsApp & Email.
+                <div className="flex items-center justify-center gap-2">
+                  <CheckCircle2 size={18} />
+                  <span>
+                    You’re in! Complete join in WhatsApp (we opened a new tab if your browser
+                    allows it).
+                  </span>
+                </div>
+                {inviteLink && (
+                  <a
+                    href={inviteLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-[#EAFF00] underline underline-offset-2 hover:text-white transition-colors"
+                  >
+                    Open WhatsApp group invite
+                  </a>
+                )}
               </motion.div>
             )}
             {status === 'duplicate' && (
@@ -228,10 +252,22 @@ export default function WaitlistSignup() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center justify-center gap-2 mt-6 text-amber-400 font-['Satoshi'] text-sm"
+                className="mt-6 text-center text-amber-400 font-['Satoshi'] text-sm space-y-3"
               >
-                <AlertTriangle size={18} />
-                This email is already registered!
+                <div className="flex items-center justify-center gap-2">
+                  <AlertTriangle size={18} />
+                  <span>This email is already registered — here’s your group link again.</span>
+                </div>
+                {inviteLink && (
+                  <a
+                    href={inviteLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-amber-400 underline underline-offset-2 hover:text-white transition-colors"
+                  >
+                    Open WhatsApp group invite
+                  </a>
+                )}
               </motion.div>
             )}
             {status === 'error' && (

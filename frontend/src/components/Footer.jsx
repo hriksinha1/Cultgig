@@ -30,7 +30,7 @@ const quickLinks = [
 const joinLinks = [
   { label: 'For Artists', to: '/for-artists' },
   { label: 'For Businesses', to: '/for-businesses' },
-  { label: 'Join Waitlist', to: '/waitlist' },
+  { label: 'WhatsApp community', to: '/waitlist' },
 ];
 
 const legalLinks = [
