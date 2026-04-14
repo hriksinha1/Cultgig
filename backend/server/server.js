@@ -1,10 +1,12 @@
-// CultGig Backend — Express.js + Mongoose Entry Point
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-// Load .env from the server directory regardless of where this file is require()'d from
-require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+
+// Load .env in development; Vercel provides environment variables directly in production
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+}
 
 const waitlistRoutes = require('./routes/waitlist');
 
@@ -36,12 +38,19 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // handle pre-flight for all routes
 app.use(express.json());
 
-// MongoDB Connection — use local MongoDB (managed by platform)
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://thecultgig_db_user:jNUuZLq8Nk3I05oM@cultgig.jpebwri.mongodb.net/';
+// MongoDB Connection
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(MONGO_URI)
+if (!MONGO_URI) {
+  console.warn('⚠️ WARNING: MONGO_URI is not defined. Backend will fail to connect to database.');
+}
+
+mongoose.connect(MONGO_URI || '')
   .then(() => console.log('MongoDB connected — CultGig DB ready'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+    console.error('Tip: Verify MONGO_URI in your Vercel/Local environment variables.');
+  });
 
 // Routes
 // We handle both prefixed and non-prefixed paths to ensure compatibility with Vercel rewrites
