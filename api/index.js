@@ -1,5 +1,6 @@
 // Vercel Serverless Function entry point
-// All backend deps (express, mongoose, cors, dotenv) are in root node_modules
+console.log('🚀 Invoking api/index.js...');
 const app = require('../backend/server/server');
 
+// Ensure all environment variants recognize this is the entry point
 module.exports = app;

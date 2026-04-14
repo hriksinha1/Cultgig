@@ -3,7 +3,8 @@
   "buildCommand": "npm run build -w frontend",
   "outputDirectory": "frontend/build",
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/api/:match*", "destination": "/api/index.js" }
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/index.js" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
