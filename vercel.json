@@ -4,6 +4,6 @@
   "outputDirectory": "frontend/build",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.js" }
+    { "source": "/api/:match*", "destination": "/api/index.js" }
   ]
 }
