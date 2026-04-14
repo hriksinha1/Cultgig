@@ -1,5 +1,13 @@
 {
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "install-all": "npm install && cd frontend && npm install && cd ../backend/server && npm install"
+  },
   "dependencies": {
-    "ajv": "^8.18.0"
+    "ajv": "^8.18.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1",
+    "mongoose": "^8.9.5"
   }
 }

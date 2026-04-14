@@ -72,7 +72,13 @@ app.get('/api/cors-debug', (req, res) => {
   });
 });
 
-// Start server
-app.listen(5555, '0.0.0.0', () => {
-  console.log(`CultGig server running on port ${5555}`);
-});
+// Start server if running directly (local dev)
+if (require.main === module) {
+  const PORT = process.env.PORT || 5555;
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`CultGig server running on port ${PORT}`);
+  });
+}
+
+// Export for Vercel functions
+module.exports = app;
