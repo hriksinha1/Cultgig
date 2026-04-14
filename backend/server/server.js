@@ -2,7 +2,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+const path = require('path');
+// Load .env from the server directory regardless of where this file is require()'d from
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 const waitlistRoutes = require('./routes/waitlist');
 

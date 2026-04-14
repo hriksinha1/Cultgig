@@ -1,6 +1,4 @@
 const app = require('../backend/server/server');
 
-// Bridge for Vercel Serverless Function
-module.exports = (req, res) => {
-  return app(req, res);
-};
+// Export the Express app directly for Vercel Serverless Functions
+module.exports = app;
