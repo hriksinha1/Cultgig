@@ -18,6 +18,7 @@ const waitlistSchema = new mongoose.Schema({
   whatsapp: {
     type: String,
     required: true,
+    unique: true,
     trim: true,
     match: [/^\d{10}$/, 'Please provide a valid 10-digit mobile number'],
   },

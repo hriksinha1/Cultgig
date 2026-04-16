@@ -1,21 +1,9 @@
-// POST /api/waitlist — stores signup; returns inviteUrl from env:
-//   WHATSAPP_GROUP_ARTIST_URL   — chat.whatsapp.com invite for Artist/Creator
-//   WHATSAPP_GROUP_BUSINESS_URL — chat.whatsapp.com invite for Business/Venue
+// POST /api/waitlist — stores signup and saves to MongoDB
 const express = require('express');
 const router = express.Router();
 const Waitlist = require('../models/Waitlist');
 
-function inviteUrlForRole(role) {
-  const raw =
-    role === 'business'
-      ? process.env.WHATSAPP_GROUP_BUSINESS_URL
-      : process.env.WHATSAPP_GROUP_ARTIST_URL;
-  if (typeof raw !== 'string') return null;
-  const trimmed = raw.trim();
-  return /^https?:\/\//i.test(trimmed) ? trimmed : null;
-}
-
-// POST /api/waitlist — Save signup and return WhatsApp group invite for role
+// POST /api/waitlist — Save signup to MongoDB
 router.post('/', async (req, res) => {
   try {
     const { name, email, whatsapp, role } = req.body;
@@ -59,12 +47,20 @@ router.post('/', async (req, res) => {
     }
 
     // Check if email already exists
-    const existing = await Waitlist.findOne({ email: normalizedEmail });
-    if (existing) {
+    const existingEmail = await Waitlist.findOne({ email: normalizedEmail });
+    if (existingEmail) {
       return res.status(409).json({
         success: false,
         message: 'This email is already registered.',
-        inviteUrl: inviteUrlForRole(normalizedRole),
+      });
+    }
+
+    // Check if phone number already exists
+    const existingPhone = await Waitlist.findOne({ whatsapp: normalizedWhatsapp });
+    if (existingPhone) {
+      return res.status(409).json({
+        success: false,
+        message: 'This mobile number is already registered.',
       });
     }
 
@@ -79,8 +75,7 @@ router.post('/', async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      message: 'Saved! Opening WhatsApp to join your community…',
-      inviteUrl: inviteUrlForRole(normalizedRole),
+      message: 'Thanks for joining our waitlist! We\'ll be in touch soon.',
     });
   } catch (err) {
     console.error('Waitlist error:', err);
@@ -90,16 +85,6 @@ router.post('/', async (req, res) => {
     });
   }
 });
-
-// GET /api/waitlist — List all entries - This opens public data. Don't use this.
-// router.get('/', async (req, res) => {
-//   try {
-//     const entries = await Waitlist.find().sort({ joinedAt: -1 });
-//     return res.json({ success: true, data: entries });
-//   } catch (err) {
-//     return res.status(500).json({ success: false, message: 'Server error' });
-//   }
-// });
 
 // GET /api/waitlist/count — Count entries
 router.get('/count', async (req, res) => {

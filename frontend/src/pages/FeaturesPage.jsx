@@ -117,7 +117,7 @@ export default function FeaturesPage() {
             data-testid="features-cta-waitlist"
             className="inline-block bg-[#EAFF00] text-black font-bold px-8 py-4 rounded-lg text-base shadow-[0_0_20px_rgba(234,255,0,0.4)] hover:shadow-[0_0_40px_rgba(234,255,0,0.6)] hover:bg-[#d4e600] transition-all duration-300 font-['Satoshi']"
           >
-            Join WhatsApp community
+            Join Waitlist
           </Link>
         </div>
       </section>

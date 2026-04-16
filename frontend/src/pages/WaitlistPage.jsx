@@ -199,7 +199,7 @@ export default function WaitlistPage() {
             <button type="submit" data-testid="wp-submit-btn" disabled={loading || !name || !email || !whatsapp || !role}
               className="w-full bg-[#EAFF00] text-black font-bold py-4 rounded-lg text-base shadow-[0_0_20px_rgba(234,255,0,0.4)] hover:shadow-[0_0_40px_rgba(234,255,0,0.6)] hover:bg-[#d4e600] transition-all duration-300 font-['Satoshi'] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? <span className="flex items-center justify-center gap-2"><Loader2 size={18} className="animate-spin" />Submitting...</span> : 'Join WhatsApp community'}
+              {loading ? <span className="flex items-center justify-center gap-2"><Loader2 size={18} className="animate-spin" />Submitting...</span> : 'Join Waitlist'}
             </button>
           </form>
 
