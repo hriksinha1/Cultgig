@@ -1,8 +1,12 @@
-// CultGig Backend — Express.js + Mongoose Entry Point
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+const path = require('path');
+
+// Load .env in development; Vercel provides environment variables directly in production
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+}
 
 const waitlistRoutes = require('./routes/waitlist');
 
@@ -75,14 +79,25 @@ mongoose.connect(MONGO_URI)
   });
 
 // Routes
-app.use('/api/waitlist', waitlistRoutes);
+// We handle both prefixed and non-prefixed paths to ensure compatibility with Vercel rewrites
+app.use(['/api/waitlist', '/waitlist'], waitlistRoutes);
+
+// Test endpoint to verify backend is live
+app.get(['/api/test-backend', '/test-backend'], (req, res) => {
+  res.json({ 
+    success: true, 
+    message: 'Backend is connected and reachable!',
+    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV || 'development'
+  });
+});
 
 // Health check
 app.get('/api', (req, res) => {
   res.json({ message: 'CultGig Node.js API is running', status: 'ok' });
 });
 
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({ status: 'healthy', service: 'CultGig Node.js API', version: '1.0.0' });
 });
 
@@ -105,7 +120,26 @@ app.get('/api/cors-debug', (req, res) => {
   });
 });
 
-// Start server
-app.listen(5555, '0.0.0.0', () => {
-  console.log(`CultGig server running on port ${5555}`);
+// Final Diagnostic Catch-all for 404s
+// If no routes above match, this provides a helpful JSON response for debugging
+app.use((req, res) => {
+  console.log(`⚠️ 404 Not Found: ${req.method} ${req.url}`);
+  res.status(404).json({
+    success: false,
+    error: 'Route not found',
+    receivedPath: req.url,
+    receivedMethod: req.method,
+    tip: 'If this is on Vercel, verify your vercel.json rewrites match the Express routes.'
+  });
 });
+
+// Start server if running directly (local dev)
+if (require.main === module) {
+  const PORT = process.env.PORT || 5555;
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`CultGig server running on port ${PORT}`);
+  });
+}
+
+// Export for Vercel functions
+module.exports = app;
