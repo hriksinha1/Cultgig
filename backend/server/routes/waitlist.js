@@ -46,22 +46,26 @@ router.post('/', async (req, res) => {
       });
     }
 
-    // Check if email already exists
-    const existingEmail = await Waitlist.findOne({ email: normalizedEmail });
-    if (existingEmail) {
-      return res.status(409).json({
-        success: false,
-        message: 'This email is already registered.',
-      });
-    }
-
-    // Check if phone number already exists
-    const existingPhone = await Waitlist.findOne({ whatsapp: normalizedWhatsapp });
-    if (existingPhone) {
-      return res.status(409).json({
-        success: false,
-        message: 'This mobile number is already registered.',
-      });
+    // Check for duplicates (email OR phone) in a single atomic query to prevent race conditions
+    const existingEntry = await Waitlist.findOne({
+      $or: [
+        { email: normalizedEmail },
+        { whatsapp: normalizedWhatsapp }
+      ]
+    });
+    
+    if (existingEntry) {
+      if (existingEntry.email === normalizedEmail) {
+        return res.status(409).json({
+          success: false,
+          message: 'This email is already registered.',
+        });
+      } else {
+        return res.status(409).json({
+          success: false,
+          message: 'This mobile number is already registered.',
+        });
+      }
     }
 
     // Save new waitlist entry
@@ -71,7 +75,32 @@ router.post('/', async (req, res) => {
       whatsapp: normalizedWhatsapp,
       role: normalizedRole,
     });
-    await entry.save();
+
+    try {
+      await entry.save();
+    } catch (saveErr) {
+      // Handle MongoDB duplicate key error (E11000) from unique constraints
+      if (saveErr.code === 11000) {
+        const field = Object.keys(saveErr.keyPattern || {})[0];
+        if (field === 'email') {
+          return res.status(409).json({
+            success: false,
+            message: 'This email is already registered.',
+          });
+        } else if (field === 'whatsapp') {
+          return res.status(409).json({
+            success: false,
+            message: 'This mobile number is already registered.',
+          });
+        }
+        return res.status(409).json({
+          success: false,
+          message: 'This entry already exists.',
+        });
+      }
+      // Re-throw other errors to outer catch block
+      throw saveErr;
+    }
 
     return res.status(201).json({
       success: true,
@@ -79,6 +108,8 @@ router.post('/', async (req, res) => {
     });
   } catch (err) {
     console.error('Waitlist error:', err);
+
+    // Handle any remaining errors
     return res.status(500).json({
       success: false,
       message: 'Server error. Try again.',

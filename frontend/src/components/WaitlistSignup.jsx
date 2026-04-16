@@ -67,6 +67,7 @@ export default function WaitlistSignup() {
         setRole('');
       } else if (statusCode === 409) {
         setStatus('duplicate');
+        setValidationMessage(data.message || 'This entry is already registered.');
       } else if (statusCode === 400 && data.message) {
         setStatus('error');
         setValidationMessage(data.message);
@@ -244,7 +245,7 @@ export default function WaitlistSignup() {
               >
                 <div className="flex items-center justify-center gap-2">
                   <AlertTriangle size={18} />
-                  <span>This email is already registered on our waitlist.</span>
+                  <span>{validationMessage || 'This entry is already registered on our waitlist.'}</span>
                 </div>
               </motion.div>
             )}

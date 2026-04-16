@@ -34,12 +34,45 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // handle pre-flight for all routes
 app.use(express.json());
 
-// MongoDB Connection — use local MongoDB (managed by platform)
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://thecultgig_db_user:jNUuZLq8Nk3I05oM@cultgig.jpebwri.mongodb.net/';
+// MongoDB Connection
+const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+  console.error('❌ FATAL: MONGO_URI environment variable is not set');
+  console.error('   Please add MONGO_URI to your .env file');
+  console.error('   Example: MONGO_URI=mongodb+srv://user:password@cluster.mongodb.net/database');
+  process.exit(1);
+}
+
+/**
+ * Handle index creation errors gracefully
+ * If unique index creation fails due to duplicates, provide clear guidance
+ */
 mongoose.connect(MONGO_URI)
-  .then(() => console.log('MongoDB connected — CultGig DB ready'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+  .then(async () => {
+    console.log('✅ MongoDB connected — CultGig DB ready');
+    
+    // Import models AFTER connection to ensure indexes are created
+    try {
+      require('./models/Waitlist');
+      console.log('✅ Database indexes validated successfully');
+    } catch (indexErr) {
+      if (indexErr.code === 11000 || indexErr.message.includes('duplicate')) {
+        console.error('⚠️  INDEX CREATION FAILED: Duplicate values detected in database');
+        console.error('The whatsapp field has a unique constraint but duplicate phone numbers exist.');
+        console.error('\n🔧 To fix this, run the migration script:');
+        console.error('   npm run migrate:cleanup\n');
+        console.error('This will remove duplicate phone number entries while keeping the first one.');
+        process.exit(1);
+      } else {
+        throw indexErr;
+      }
+    }
+  })
+  .catch((err) => {
+    console.error('❌ MongoDB connection error:', err.message);
+    process.exit(1);
+  });
 
 // Routes
 app.use('/api/waitlist', waitlistRoutes);
