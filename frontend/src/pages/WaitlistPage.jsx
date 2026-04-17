@@ -3,9 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from '../components/ui/input';
 import { CheckCircle2, AlertTriangle, Loader2, Users, Building2, MapPin, Zap, Gift, Shield } from 'lucide-react';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL?.trim();
-const WAITLIST_ENDPOINT = BACKEND_URL ? `${BACKEND_URL}/api/waitlist` : '/api/waitlist';
+import { addToWaitlist } from '../lib/appwrite';
 
 const stats = [
   { icon: Users, label: 'Artist & creator community', color: 'text-[#EAFF00]' },
@@ -51,45 +49,23 @@ export default function WaitlistPage() {
     setStatus(null);
     setValidationMessage('');
     try {
-      const res = await fetch(WAITLIST_ENDPOINT, {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'omit',
-        body: JSON.stringify({ name, email: normalizedEmail, whatsapp: normalizedWhatsapp, role }),
+      await addToWaitlist({
+        name: name.trim(),
+        email: normalizedEmail,
+        whatsapp: normalizedWhatsapp,
+        role,
       });
-      const statusCode = res.status;
-      let data = {};
-      try { data = await res.json(); } catch (e) {}
-      if (statusCode === 201 && data.success) {
-        setStatus('success');
-        setName(''); setEmail(''); setWhatsapp(''); setRole('');
-      } else if (statusCode === 409) {
+      setStatus('success');
+      setName(''); setEmail(''); setWhatsapp(''); setRole('');
+    } catch (err) {
+      console.error('[Waitlist Error]', err);
+      if (err.code === 'DUPLICATE_EMAIL' || err.code === 'DUPLICATE_PHONE') {
         setStatus('duplicate');
-        setValidationMessage(data.message || 'This entry is already registered.');
-      } else if (statusCode === 400 && data.message) {
-        setStatus('error');
-        setValidationMessage(data.message);
+        setValidationMessage(err.message);
       } else {
         setStatus('error');
-        if (data.message) {
-          setValidationMessage(data.message);
-        }
+        setValidationMessage(err.message || 'Unable to submit. Please try again.');
       }
-    } catch (err) {
-      setStatus('error');
-      console.error('[Waitlist Error]', err);
-      
-      // Better error messaging
-      let errorMsg = 'Unable to reach server. Please try again.';
-      if (!BACKEND_URL) {
-        errorMsg = 'Backend URL is not configured. Set REACT_APP_BACKEND_URL in frontend environment variables.';
-      } else if (err instanceof TypeError && err.message.includes('CORS')) {
-        errorMsg = 'CORS error: Backend is blocking this request. Please check server configuration.';
-      } else if (err instanceof TypeError) {
-        errorMsg = 'Network error. Check your internet connection and try again.';
-      }
-      setValidationMessage(errorMsg);
     } finally {
       setLoading(false);
     }
