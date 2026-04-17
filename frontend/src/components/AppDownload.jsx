@@ -28,7 +28,7 @@ export default function AppDownload() {
             >
               Take <span className="text-[#EAFF00]">cultgig</span> Everywhere
             </h2>
-            <p className="text-[#a0a0a0] text-lg font-['Satoshi'] leading-relaxed mb-10 max-w-md">
+            <p className="text-[#ffffff] text-lg font-['Satoshi'] leading-relaxed mb-10 max-w-md">
               Available on iOS and Android. Discover gigs or talent on the go.
               Book, perform, and get paid — all from your pocket.
             </p>
@@ -42,7 +42,7 @@ export default function AppDownload() {
               >
                 <Apple size={28} className="text-white group-hover:text-[#EAFF00] transition-colors" />
                 <div>
-                  <span className="text-xs text-[#a0a0a0] font-['Satoshi'] block">Download on the</span>
+                  <span className="text-xs text-[#ffffff] font-['Satoshi'] block">Download on the</span>
                   <span className="text-base font-semibold text-white font-['Satoshi']">App Store</span>
                 </div>
               </a>
@@ -54,7 +54,7 @@ export default function AppDownload() {
               >
                 <Play size={28} className="text-white group-hover:text-[#EAFF00] transition-colors fill-current" />
                 <div>
-                  <span className="text-xs text-[#a0a0a0] font-['Satoshi'] block">Get it on</span>
+                  <span className="text-xs text-[#ffffff] font-['Satoshi'] block">Get it on</span>
                   <span className="text-base font-semibold text-white font-['Satoshi']">Google Play</span>
                 </div>
               </a>

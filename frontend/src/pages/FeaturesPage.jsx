@@ -38,7 +38,7 @@ function FeatureCard({ icon: Icon, title, desc, index }) {
         <Icon size={24} className="text-[#EAFF00]" />
       </div>
       <h4 className="font-['Syne'] text-lg font-semibold text-white mb-2">{title}</h4>
-      <p className="text-[#a0a0a0] text-sm leading-relaxed font-['Satoshi']">{desc}</p>
+      <p className="text-[#ffffff] text-sm leading-relaxed font-['Satoshi']">{desc}</p>
     </motion.div>
   );
 }
@@ -63,7 +63,7 @@ export default function FeaturesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-[#a0a0a0] font-['Satoshi'] max-w-2xl mx-auto"
+            className="text-lg text-[#ffffff] font-['Satoshi'] max-w-2xl mx-auto"
           >
             Everything you need to shine on stage or find the perfect act for your venue.
           </motion.p>

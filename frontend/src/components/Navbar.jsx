@@ -1,15 +1,15 @@
 /* Navbar - Updated with React Router links + multi-page navigation */
-import { useState, useEffect } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: 'Features', to: '/features' },
-  { label: 'How It Works', to: '/how-it-works' },
-  { label: 'For Artists', to: '/for-artists' },
-  { label: 'For Businesses', to: '/for-businesses' },
-  { label: 'About', to: '/about' },
+  { label: "Features", to: "/features" },
+  { label: "How It Works", to: "/how-it-works" },
+  { label: "For Artists", to: "/for-artists" },
+  { label: "For Businesses", to: "/for-businesses" },
+  { label: "About", to: "/about" },
 ];
 
 export default function Navbar() {
@@ -19,8 +19,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   /* Close mobile menu on route change */
@@ -33,13 +33,17 @@ export default function Navbar() {
       data-testid="navbar"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-20 flex items-center ${
         scrolled
-          ? 'bg-black/70 backdrop-blur-xl border-b border-white/10'
-          : 'bg-transparent'
+          ? "bg-black/70 backdrop-blur-xl border-b border-white/10"
+          : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" data-testid="navbar-logo" className="font-['Syne'] text-2xl font-extrabold tracking-tight">
+        <Link
+          to="/"
+          data-testid="navbar-logo"
+          className="font-['Syne'] text-2xl font-extrabold tracking-tight"
+        >
           Cult<span className="text-[#EAFF00]">Gig</span>
         </Link>
 
@@ -49,10 +53,12 @@ export default function Navbar() {
             <NavLink
               key={link.to}
               to={link.to}
-              data-testid={`nav-link-${link.label.toLowerCase().replace(/\s/g, '-')}`}
+              data-testid={`nav-link-${link.label.toLowerCase().replace(/\s/g, "-")}`}
               className={({ isActive }) =>
                 `text-sm font-medium transition-colors duration-300 font-['Satoshi'] ${
-                  isActive ? 'text-[#EAFF00]' : 'text-[#a0a0a0] hover:text-white'
+                  isActive
+                    ? "text-[#EAFF00]"
+                    : "text-[#ffffff] hover:text-white"
                 }`
               }
             >
@@ -62,9 +68,9 @@ export default function Navbar() {
           <Link
             to="/waitlist"
             data-testid="nav-cta-join-waitlist"
-            className="bg-[#EAFF00] text-black text-sm font-bold px-6 py-2.5 rounded-full hover:bg-[#d4e600] transition-all duration-300 shadow-[0_0_20px_rgba(234,255,0,0.3)] hover:shadow-[0_0_30px_rgba(234,255,0,0.5)]"
+            className="bg-transparent text-white border border-white/20 font-bold px-4 py-2 rounded-lg text-base hover:border-[#EAFF00] hover:text-[#EAFF00] transition-all duration-300 font-['Satoshi']"
           >
-            WhatsApp community
+            Join Waitlist
           </Link>
         </div>
 
@@ -90,13 +96,20 @@ export default function Navbar() {
             className="fixed inset-0 top-20 bg-black/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 lg:hidden"
           >
             {navLinks.map((link, i) => (
-              <motion.div key={link.to} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
+              <motion.div
+                key={link.to}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+              >
                 <NavLink
                   to={link.to}
-                  data-testid={`mobile-nav-link-${link.label.toLowerCase().replace(/\s/g, '-')}`}
+                  data-testid={`mobile-nav-link-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                   className={({ isActive }) =>
                     `text-2xl font-['Syne'] font-bold transition-colors ${
-                      isActive ? 'text-[#EAFF00]' : 'text-white hover:text-[#EAFF00]'
+                      isActive
+                        ? "text-[#EAFF00]"
+                        : "text-white hover:text-[#EAFF00]"
                     }`
                   }
                 >
@@ -104,7 +117,11 @@ export default function Navbar() {
                 </NavLink>
               </motion.div>
             ))}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: navLinks.length * 0.08 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: navLinks.length * 0.08 }}
+            >
               <Link
                 to="/waitlist"
                 data-testid="mobile-nav-cta-waitlist"

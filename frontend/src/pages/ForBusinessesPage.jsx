@@ -40,7 +40,7 @@ export default function ForBusinessesPage() {
             Find the Perfect Talent for{' '}<span className="text-[#EAFF00]">Your Venue</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="text-lg text-[#a0a0a0] font-['Satoshi'] max-w-xl mx-auto mb-8">
+            className="text-lg text-[#ffffff] font-['Satoshi'] max-w-xl mx-auto mb-8">
             Discover, book, and manage world-class performers and creators for your events — all from one platform.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
@@ -84,7 +84,7 @@ export default function ForBusinessesPage() {
                   <b.icon size={24} className="text-[#EAFF00]" />
                 </div>
                 <h4 className="font-['Syne'] text-lg font-semibold text-white mb-2">{b.title}</h4>
-                <p className="text-[#a0a0a0] text-sm leading-relaxed font-['Satoshi']">{b.desc}</p>
+                <p className="text-[#ffffff] text-sm leading-relaxed font-['Satoshi']">{b.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -108,13 +108,13 @@ export default function ForBusinessesPage() {
                   </div>
                   <div>
                     <h4 className="font-['Syne'] text-base font-semibold text-white">{b.name}</h4>
-                    <p className="text-[#a0a0a0] text-xs font-['Satoshi']">{b.type}</p>
+                    <p className="text-[#ffffff] text-xs font-['Satoshi']">{b.type}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 text-xs font-['Satoshi']">
-                  <span className="flex items-center gap-1 text-[#a0a0a0]"><MapPin size={12} />{b.city}</span>
+                  <span className="flex items-center gap-1 text-[#ffffff]"><MapPin size={12} />{b.city}</span>
                   <span className="flex items-center gap-1 text-[#EAFF00]"><Star size={12} />{b.rating}</span>
-                  <span className="text-[#a0a0a0]">{b.bookings} Bookings</span>
+                  <span className="text-[#ffffff]">{b.bookings} Bookings</span>
                 </div>
               </motion.div>
             ))}

@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
           className="font-['Syne'] text-3xl md:text-4xl font-extrabold text-white mb-3">
           Privacy <span className="text-[#EAFF00]">Policy</span>
         </motion.h1>
-        <p className="text-[#a0a0a0] font-['Satoshi'] text-sm">Last updated: December 2025</p>
+        <p className="text-[#ffffff] font-['Satoshi'] text-sm">Last updated: December 2025</p>
       </section>
 
       {/* Content with sidebar */}
@@ -36,7 +36,7 @@ export default function PrivacyPolicyPage() {
               {sections.map((s) => (
                 <li key={s.id}>
                   <button onClick={() => handleScrollTo(s.id)}
-                    className="text-sm text-[#a0a0a0] hover:text-[#EAFF00] transition-colors font-['Satoshi'] text-left w-full py-1">
+                    className="text-sm text-[#ffffff] hover:text-[#EAFF00] transition-colors font-['Satoshi'] text-left w-full py-1">
                     {s.title}
                   </button>
                 </li>
@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
             {sections.map((s, i) => (
               <motion.div key={s.id} id={s.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
                 <h2 className="font-['Syne'] text-xl font-bold text-[#EAFF00] mb-3">{s.title}</h2>
-                <p className="text-[#a0a0a0] text-base leading-relaxed font-['Satoshi']">{s.content}</p>
+                <p className="text-[#ffffff] text-base leading-relaxed font-['Satoshi']">{s.content}</p>
               </motion.div>
             ))}
           </div>

@@ -1,12 +1,12 @@
 /* Hero section - Full viewport, CENTER-ALIGNED on all screen sizes */
-import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import HeroScene from './HeroScene';
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import HeroScene from "./HeroScene";
 
 export default function Hero() {
   const handleScroll = (href) => {
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -35,9 +35,10 @@ export default function Hero() {
           >
             <span
               data-testid="hero-pill-label"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-[#a0a0a0] font-['Satoshi'] backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-[#ffffff] font-['Satoshi'] backdrop-blur-sm"
             >
-              <span className="text-base">🎭</span> Where Talent Meets Opportunity
+              <span className="text-base">🎭</span> Where Talent Meets
+              Opportunity
             </span>
           </motion.div>
 
@@ -60,7 +61,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-lg text-[#a0a0a0] font-['Satoshi'] leading-relaxed mb-10 max-w-[600px] mx-auto"
+            className="text-lg text-[#fffbfb] font-['Satoshi'] leading-relaxed mb-10 max-w-[600px] mx-auto"
           >
             cultgig connects artists, creators, and freelancers with businesses
             and venues that need their talent.
@@ -75,14 +76,14 @@ export default function Hero() {
           >
             <button
               data-testid="hero-cta-download"
-              onClick={() => handleScroll('#download')}
+              onClick={() => handleScroll("#download")}
               className="bg-[#EAFF00] text-black font-bold px-8 py-4 rounded-lg text-base shadow-[0_0_20px_rgba(234,255,0,0.4)] hover:shadow-[0_0_40px_rgba(234,255,0,0.6)] hover:bg-[#d4e600] transition-all duration-300 glow-pulse font-['Satoshi']"
             >
               Download the App
             </button>
             <button
               data-testid="hero-cta-waitlist"
-              onClick={() => handleScroll('#whatsapp-community')}
+              onClick={() => handleScroll("#whatsapp-community")}
               className="bg-transparent text-white border border-white/20 font-bold px-8 py-4 rounded-lg text-base hover:border-[#EAFF00] hover:text-[#EAFF00] transition-all duration-300 font-['Satoshi']"
             >
               Join Waitlist
@@ -97,7 +98,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 1 }}
             className="text-sm text-[#666666] font-['Satoshi']"
           >
-            🎵 For Musicians &middot; 📸 Photographers &middot; 😂 Comedians &middot; 🎭 Creators &middot; 🏨 Venues &middot; 🍽️ Restaurants
+            🎵 For Musicians &middot; 📸 Photographers &middot; 😂 Comedians
+            &middot; 🎭 Creators &middot; 🏨 Venues &middot; 🍽️ Restaurants
           </motion.p>
         </div>
       </div>
@@ -111,7 +113,7 @@ export default function Hero() {
       >
         <button
           data-testid="hero-scroll-down"
-          onClick={() => handleScroll('#features')}
+          onClick={() => handleScroll("#features")}
           className="text-[#EAFF00]/60 hover:text-[#EAFF00] transition-colors bounce-down"
         >
           <ChevronDown size={32} />

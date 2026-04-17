@@ -88,7 +88,7 @@ export default function WaitlistPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-[#a0a0a0] font-['Satoshi'] max-w-xl mx-auto"
+            className="text-lg text-[#ffffff] font-['Satoshi'] max-w-xl mx-auto"
           >
             Join our waitlist and be the first to experience Cultgig. Tell us if you're an Artist/Creator
             or Business/Venue so we can tailor your experience.
@@ -141,10 +141,10 @@ export default function WaitlistPage() {
             </div>
             <div className="flex gap-3">
               <button type="button" data-testid="wp-role-artist" onClick={() => setRole('artist')}
-                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold font-['Satoshi'] transition-all duration-300 border ${role === 'artist' ? 'bg-[#EAFF00]/10 border-[#EAFF00] text-[#EAFF00]' : 'bg-[#1a1a1a] border-white/10 text-[#a0a0a0] hover:border-white/30'}`}
+                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold font-['Satoshi'] transition-all duration-300 border ${role === 'artist' ? 'bg-[#EAFF00]/10 border-[#EAFF00] text-[#EAFF00]' : 'bg-[#1a1a1a] border-white/10 text-[#ffffff] hover:border-white/30'}`}
               >🎤 Artist / Creator</button>
               <button type="button" data-testid="wp-role-business" onClick={() => setRole('business')}
-                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold font-['Satoshi'] transition-all duration-300 border ${role === 'business' ? 'bg-[#EAFF00]/10 border-[#EAFF00] text-[#EAFF00]' : 'bg-[#1a1a1a] border-white/10 text-[#a0a0a0] hover:border-white/30'}`}
+                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold font-['Satoshi'] transition-all duration-300 border ${role === 'business' ? 'bg-[#EAFF00]/10 border-[#EAFF00] text-[#EAFF00]' : 'bg-[#1a1a1a] border-white/10 text-[#ffffff] hover:border-white/30'}`}
               >🏢 Business / Venue</button>
             </div>
             <button type="submit" data-testid="wp-submit-btn" disabled={loading || !name || !email || !whatsapp || !role}
@@ -198,7 +198,7 @@ export default function WaitlistPage() {
                   <b.icon size={24} className="text-[#EAFF00]" />
                 </div>
                 <h4 className="font-['Syne'] text-lg font-semibold text-white mb-2">{b.title}</h4>
-                <p className="text-[#a0a0a0] text-sm font-['Satoshi']">{b.desc}</p>
+                <p className="text-[#ffffff] text-sm font-['Satoshi']">{b.desc}</p>
               </motion.div>
             ))}
           </div>

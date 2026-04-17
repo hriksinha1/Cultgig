@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,301,701,300,501,401,901,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,301,701,300,501,401,901,400&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --cultgig-accent: #EAFF00;
+  --cultgig-accent: #eaff00;
   --cultgig-bg: #000000;
   --cultgig-bg-secondary: #0a0a0a;
   --cultgig-surface: #111111;
   --cultgig-surface-alt: #1a1a1a;
-  --cultgig-text: #FFFFFF;
-  --cultgig-text-muted: #a0a0a0;
+  --cultgig-text: #ffffff;
+  --cultgig-text-muted: #ffffff;
   --cultgig-border: rgba(255, 255, 255, 0.1);
 }
 
@@ -27,7 +27,7 @@ html {
 }
 
 body {
-  font-family: 'Satoshi', sans-serif;
+  font-family: "Satoshi", sans-serif;
   background-color: var(--cultgig-bg);
   color: var(--cultgig-text);
   -webkit-font-smoothing: antialiased;
@@ -35,13 +35,18 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Syne', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Syne", sans-serif;
 }
 
 ::selection {
   background-color: rgba(234, 255, 0, 0.3);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 ::-webkit-scrollbar {

@@ -40,7 +40,7 @@ export default function ForArtistsPage() {
             Your Stage is <span className="text-[#EAFF00]">Everywhere</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="text-lg text-[#a0a0a0] font-['Satoshi'] max-w-xl mx-auto mb-8">
+            className="text-lg text-[#ffffff] font-['Satoshi'] max-w-xl mx-auto mb-8">
             Get discovered by top venues and businesses. Build your portfolio, get booked, and get paid — all in one place.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
@@ -84,7 +84,7 @@ export default function ForArtistsPage() {
                   <b.icon size={24} className="text-[#EAFF00]" />
                 </div>
                 <h4 className="font-['Syne'] text-lg font-semibold text-white mb-2">{b.title}</h4>
-                <p className="text-[#a0a0a0] text-sm leading-relaxed font-['Satoshi']">{b.desc}</p>
+                <p className="text-[#ffffff] text-sm leading-relaxed font-['Satoshi']">{b.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -108,13 +108,13 @@ export default function ForArtistsPage() {
                   </div>
                   <div>
                     <h4 className="font-['Syne'] text-base font-semibold text-white">{a.name}</h4>
-                    <p className="text-[#a0a0a0] text-xs font-['Satoshi']">{a.role}</p>
+                    <p className="text-[#ffffff] text-xs font-['Satoshi']">{a.role}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 text-xs font-['Satoshi']">
-                  <span className="flex items-center gap-1 text-[#a0a0a0]"><MapPin size={12} />{a.city}</span>
+                  <span className="flex items-center gap-1 text-[#ffffff]"><MapPin size={12} />{a.city}</span>
                   <span className="flex items-center gap-1 text-[#EAFF00]"><Star size={12} />{a.rating}</span>
-                  <span className="text-[#a0a0a0]">{a.gigs} Gigs</span>
+                  <span className="text-[#ffffff]">{a.gigs} Gigs</span>
                 </div>
               </motion.div>
             ))}

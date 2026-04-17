@@ -15,6 +15,7 @@ const endpoint =
 const projectId = process.env.REACT_APP_APPWRITE_PROJECT_ID || "";
 export const DATABASE_ID = process.env.REACT_APP_APPWRITE_DATABASE_ID || "";
 export const COLLECTION_ID = process.env.REACT_APP_APPWRITE_COLLECTION_ID || "";
+export const CONTACT_COLLECTION_ID = process.env.REACT_APP_APPWRITE_CONTACT_COLLECTION_ID || "";
 
 const client = new Client().setEndpoint(endpoint).setProject(projectId);
 
@@ -55,3 +56,16 @@ export async function addToWaitlist({ name, email, whatsapp, role }) {
 
   return { success: true };
 }
+
+/**
+ * Add an entry to the contact collection.
+ */
+export async function submitContact({ name, email, message }) {
+  await databases.createDocument(DATABASE_ID, CONTACT_COLLECTION_ID, ID.unique(), {
+    name,
+    email,
+    message,
+  });
+  return { success: true };
+}
+

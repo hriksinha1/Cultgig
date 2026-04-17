@@ -78,7 +78,7 @@ function StepCard({ step, index, total }) {
         className="text-center"
       >
         <h4 className="font-['Syne'] text-xl font-semibold text-white mb-2">{step.title}</h4>
-        <p className="text-[#a0a0a0] text-base leading-relaxed font-['Satoshi'] max-w-xs mx-auto">
+        <p className="text-[#ffffff] text-base leading-relaxed font-['Satoshi'] max-w-xs mx-auto">
           {step.description}
         </p>
       </motion.div>
@@ -108,7 +108,7 @@ export default function HowItWorks() {
           >
             How <span className="text-[#EAFF00]">cultgig</span> Works
           </h2>
-          <p className="text-[#a0a0a0] text-lg font-['Satoshi'] max-w-xl mx-auto">
+          <p className="text-[#ffffff] text-lg font-['Satoshi'] max-w-xl mx-auto">
             Three simple steps to connect talent with opportunity.
           </p>
         </motion.div>
@@ -123,14 +123,14 @@ export default function HowItWorks() {
               <TabsTrigger
                 value="artists"
                 data-testid="tab-for-artists"
-                className="rounded-full px-6 py-2.5 text-sm font-['Satoshi'] font-semibold data-[state=active]:bg-[#EAFF00] data-[state=active]:text-black data-[state=active]:shadow-[0_0_15px_rgba(234,255,0,0.3)] text-[#a0a0a0] transition-all duration-300"
+                className="rounded-full px-6 py-2.5 text-sm font-['Satoshi'] font-semibold data-[state=active]:bg-[#EAFF00] data-[state=active]:text-black data-[state=active]:shadow-[0_0_15px_rgba(234,255,0,0.3)] text-[#ffffff] transition-all duration-300"
               >
                 For Artists
               </TabsTrigger>
               <TabsTrigger
                 value="businesses"
                 data-testid="tab-for-businesses"
-                className="rounded-full px-6 py-2.5 text-sm font-['Satoshi'] font-semibold data-[state=active]:bg-[#EAFF00] data-[state=active]:text-black data-[state=active]:shadow-[0_0_15px_rgba(234,255,0,0.3)] text-[#a0a0a0] transition-all duration-300"
+                className="rounded-full px-6 py-2.5 text-sm font-['Satoshi'] font-semibold data-[state=active]:bg-[#EAFF00] data-[state=active]:text-black data-[state=active]:shadow-[0_0_15px_rgba(234,255,0,0.3)] text-[#ffffff] transition-all duration-300"
               >
                 For Businesses
               </TabsTrigger>

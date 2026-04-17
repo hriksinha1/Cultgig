@@ -89,7 +89,7 @@ export default function WaitlistSignup() {
           >
             Get <span className="text-[#EAFF00]">early access</span> to Cultgig
           </h2>
-          <p className="text-[#a0a0a0] text-lg font-['Satoshi'] leading-relaxed mb-10">
+          <p className="text-[#ffffff] text-lg font-['Satoshi'] leading-relaxed mb-10">
             Join our waitlist and be the first to experience Cultgig. Tell us if you're an Artist/Creator
             or Business/Venue so we can tailor your experience.
           </p>
@@ -147,7 +147,7 @@ export default function WaitlistSignup() {
                 className={`flex-1 py-3.5 rounded-lg text-sm font-semibold font-['Satoshi'] transition-all duration-300 border ${
                   role === 'artist'
                     ? 'bg-[#EAFF00]/10 border-[#EAFF00] text-[#EAFF00] shadow-[0_0_15px_rgba(234,255,0,0.15)]'
-                    : 'bg-[#1a1a1a] border-white/10 text-[#a0a0a0] hover:border-white/30'
+                    : 'bg-[#1a1a1a] border-white/10 text-[#ffffff] hover:border-white/30'
                 }`}
               >
                 🎤 Artist / Creator
@@ -159,7 +159,7 @@ export default function WaitlistSignup() {
                 className={`flex-1 py-3.5 rounded-lg text-sm font-semibold font-['Satoshi'] transition-all duration-300 border ${
                   role === 'business'
                     ? 'bg-[#EAFF00]/10 border-[#EAFF00] text-[#EAFF00] shadow-[0_0_15px_rgba(234,255,0,0.15)]'
-                    : 'bg-[#1a1a1a] border-white/10 text-[#a0a0a0] hover:border-white/30'
+                    : 'bg-[#1a1a1a] border-white/10 text-[#ffffff] hover:border-white/30'
                 }`}
               >
                 🏢 Business / Venue

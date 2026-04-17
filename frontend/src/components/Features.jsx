@@ -52,7 +52,7 @@ function FeatureCard({ icon: Icon, title, description, index }) {
         <Icon size={24} className="text-[#EAFF00]" />
       </div>
       <h4 className="font-['Syne'] text-xl font-semibold text-white mb-2">{title}</h4>
-      <p className="text-[#a0a0a0] text-base leading-relaxed font-['Satoshi']">{description}</p>
+      <p className="text-[#ffffff] text-base leading-relaxed font-['Satoshi']">{description}</p>
     </motion.div>
   );
 }
@@ -84,7 +84,7 @@ export default function Features() {
             <span className="text-[#EAFF00]">Shine</span> or{' '}
             <span className="text-[#EAFF00]">Scout</span>
           </h2>
-          <p className="text-[#a0a0a0] text-lg font-['Satoshi'] max-w-2xl mx-auto">
+          <p className="text-[#ffffff] text-lg font-['Satoshi'] max-w-2xl mx-auto">
             Whether you're a performer looking for your next stage or a venue searching for the perfect act.
           </p>
         </motion.div>

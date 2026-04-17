@@ -55,7 +55,7 @@ function FooterLinkColumn({ title, links, testIdPrefix }) {
             <Link
               to={link.to}
               data-testid={`${testIdPrefix}-${link.label.toLowerCase().replace(/\s/g, '-')}`}
-              className="text-[#a0a0a0] hover:text-[#EAFF00] transition-colors duration-300 text-sm font-['Satoshi']"
+              className="text-[#ffffff] hover:text-[#EAFF00] transition-colors duration-300 text-sm font-['Satoshi']"
             >
               {link.label}
             </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
             <Link to="/" className="font-['Syne'] text-3xl font-extrabold tracking-tight inline-block mb-3">
               Cult<span className="text-[#EAFF00]">Gig</span>
             </Link>
-            <p className="text-[#a0a0a0] text-sm font-['Satoshi'] leading-relaxed mb-5">
+            <p className="text-[#ffffff] text-sm font-['Satoshi'] leading-relaxed mb-5">
               Where Talent Meets Opportunity.
             </p>
             <div className="flex gap-3">
@@ -85,7 +85,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   data-testid={`footer-social-${social.label.toLowerCase().replace(/[/\s]/g, '-')}`}
-                  className="w-9 h-9 rounded-lg bg-[#111111] border border-white/10 flex items-center justify-center text-[#a0a0a0] hover:text-[#EAFF00] hover:border-[#EAFF00]/50 transition-all duration-300"
+                  className="w-9 h-9 rounded-lg bg-[#111111] border border-white/10 flex items-center justify-center text-[#ffffff] hover:text-[#EAFF00] hover:border-[#EAFF00]/50 transition-all duration-300"
                   aria-label={social.label}
                 >
                   <social.icon size={16} />
@@ -114,10 +114,10 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[#666] text-sm font-['Satoshi']">&copy; 2025 cultgig. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link to="/privacy-policy" data-testid="footer-privacy-policy" className="text-[#666] hover:text-[#a0a0a0] text-sm font-['Satoshi'] transition-colors">
+            <Link to="/privacy-policy" data-testid="footer-privacy-policy" className="text-[#666] hover:text-[#ffffff] text-sm font-['Satoshi'] transition-colors">
               Privacy Policy
             </Link>
-            <Link to="/terms-of-service" data-testid="footer-terms" className="text-[#666] hover:text-[#a0a0a0] text-sm font-['Satoshi'] transition-colors">
+            <Link to="/terms-of-service" data-testid="footer-terms" className="text-[#666] hover:text-[#ffffff] text-sm font-['Satoshi'] transition-colors">
               Terms of Service
             </Link>
           </div>

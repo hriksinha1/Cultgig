@@ -55,7 +55,7 @@ function StepCard({ step, index, total }) {
           <step.icon size={20} className="text-[#EAFF00]" />
         </div>
         <h4 className="font-['Syne'] text-xl font-semibold text-white mb-2">{step.title}</h4>
-        <p className="text-[#a0a0a0] text-base leading-relaxed font-['Satoshi'] max-w-lg">{step.desc}</p>
+        <p className="text-[#ffffff] text-base leading-relaxed font-['Satoshi'] max-w-lg">{step.desc}</p>
       </motion.div>
     </div>
   );
@@ -88,7 +88,7 @@ function FaqItem({ faq, index }) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="p-5 pt-0 text-[#a0a0a0] text-sm leading-relaxed font-['Satoshi'] bg-[#111111]">{faq.a}</p>
+            <p className="p-5 pt-0 text-[#ffffff] text-sm leading-relaxed font-['Satoshi'] bg-[#111111]">{faq.a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -114,7 +114,7 @@ export default function HowItWorksPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-[#a0a0a0] font-['Satoshi'] max-w-xl mx-auto"
+            className="text-lg text-[#ffffff] font-['Satoshi'] max-w-xl mx-auto"
           >
             From signup to showtime — here's how it all comes together.
           </motion.p>
@@ -127,10 +127,10 @@ export default function HowItWorksPage() {
           <Tabs defaultValue="artists" className="w-full">
             <div className="flex justify-center mb-14">
               <TabsList className="bg-[#111111] border border-white/10 rounded-full p-1 h-auto">
-                <TabsTrigger value="artists" data-testid="hiw-tab-artists" className="rounded-full px-6 py-2.5 text-sm font-['Satoshi'] font-semibold data-[state=active]:bg-[#EAFF00] data-[state=active]:text-black text-[#a0a0a0] transition-all">
+                <TabsTrigger value="artists" data-testid="hiw-tab-artists" className="rounded-full px-6 py-2.5 text-sm font-['Satoshi'] font-semibold data-[state=active]:bg-[#EAFF00] data-[state=active]:text-black text-[#ffffff] transition-all">
                   For Artists
                 </TabsTrigger>
-                <TabsTrigger value="businesses" data-testid="hiw-tab-businesses" className="rounded-full px-6 py-2.5 text-sm font-['Satoshi'] font-semibold data-[state=active]:bg-[#EAFF00] data-[state=active]:text-black text-[#a0a0a0] transition-all">
+                <TabsTrigger value="businesses" data-testid="hiw-tab-businesses" className="rounded-full px-6 py-2.5 text-sm font-['Satoshi'] font-semibold data-[state=active]:bg-[#EAFF00] data-[state=active]:text-black text-[#ffffff] transition-all">
                   For Businesses
                 </TabsTrigger>
               </TabsList>
