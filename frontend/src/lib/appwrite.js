@@ -11,7 +11,7 @@
 import { Client, Databases, ID, Query } from "appwrite";
 
 const endpoint =
-  process.env.REACT_APP_APPWRITE_ENDPOINT || "https://cloud.appwrite.io/v1";
+  process.env.REACT_APP_APPWRITE_ENDPOINT || "https://sgp.cloud.appwrite.io/v1";
 const projectId = process.env.REACT_APP_APPWRITE_PROJECT_ID || "";
 export const DATABASE_ID = process.env.REACT_APP_APPWRITE_DATABASE_ID || "";
 export const COLLECTION_ID = process.env.REACT_APP_APPWRITE_COLLECTION_ID || "";
