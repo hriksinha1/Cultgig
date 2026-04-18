@@ -1,11 +1,16 @@
 /* Hero section - Full viewport, CENTER-ALIGNED on all screen sizes */
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import HeroScene from "./HeroScene";
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 export default function Hero() {
-  const { scrollProgress } = useScrollAnimation();
+  const { scrollYProgress } = useScroll();
+  
+  // Create optimized motion values instead of using React state
+  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 1.2]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [0.04, 0.08]);
+  const smoothScale = useSpring(scale, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const smoothOpacity = useSpring(opacity, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   const handleScroll = (href) => {
     const el = document.querySelector(href);
@@ -43,9 +48,9 @@ export default function Hero() {
       className="relative h-screen w-full flex items-center justify-center overflow-hidden"
     >
       {/* Animated scroll progress indicator */}
-      <div
+      <motion.div
         className="scroll-progress"
-        style={{ width: `${scrollProgress}%` }}
+        style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
       />
 
       {/* 3D Background Canvas */}
@@ -54,12 +59,11 @@ export default function Hero() {
       {/* Subtle radial glow behind content with parallax */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EAFF00] opacity-[0.04] rounded-full blur-[120px]"
-          animate={{
-            scale: 1 + scrollProgress * 0.2,
-            opacity: 0.04 + scrollProgress * 0.02,
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EAFF00] rounded-full blur-[120px]"
+          style={{
+            scale: smoothScale,
+            opacity: smoothOpacity,
           }}
-          transition={{ type: "spring", stiffness: 50, damping: 20 }}
         />
       </div>
 

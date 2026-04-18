@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mic, CalendarDays, Banknote, Search, ClipboardList, Star } from 'lucide-react';
 import {
   growthCardStyle,
+  handleGrowthCardMouseEnter,
   handleGrowthCardMouseLeave,
   handleGrowthCardMouseMove,
 } from '../lib/cardFx';
@@ -59,6 +60,7 @@ function FeatureCard({ icon: Icon, title, description, index }) {
         y: -8,
         transition: { duration: 0.3, ease: [0.34, 1.56, 0.64, 1] },
       }}
+      onMouseEnter={handleGrowthCardMouseEnter}
       onMouseMove={handleGrowthCardMouseMove}
       onMouseLeave={handleGrowthCardMouseLeave}
       style={growthCardStyle}

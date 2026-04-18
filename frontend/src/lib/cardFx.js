@@ -1,10 +1,17 @@
 export const growthCardStyle = { "--mx": "50%", "--my": "0%" };
 
+export function handleGrowthCardMouseEnter(e) {
+  const card = e.currentTarget;
+  card._rect = card.getBoundingClientRect();
+}
+
 export function handleGrowthCardMouseMove(e) {
   if (!window.matchMedia("(hover: hover)").matches) return;
 
   const card = e.currentTarget;
-  const rect = card.getBoundingClientRect();
+  // Use cached rect if available, otherwise fallback (safer)
+  const rect = card._rect || card.getBoundingClientRect();
+  
   const px = ((e.clientX - rect.left) / rect.width) * 100;
   const py = ((e.clientY - rect.top) / rect.height) * 100;
   const ry = ((px - 50) / 50) * 5;
@@ -17,6 +24,7 @@ export function handleGrowthCardMouseMove(e) {
 
 export function handleGrowthCardMouseLeave(e) {
   const card = e.currentTarget;
+  card._rect = null; // Clear cache
   card.style.setProperty("--mx", "50%");
   card.style.setProperty("--my", "0%");
   card.style.transform =

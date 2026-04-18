@@ -1,12 +1,12 @@
 /* HeroScene - Vanilla Three.js 3D canvas with floating objects, particles, and Bloom */
 /* Uses raw Three.js to avoid conflicts with visual-edits wrapper injecting DOM attributes */
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, memo } from 'react';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
 
-export default function HeroScene() {
+function HeroScene() {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -21,9 +21,13 @@ export default function HeroScene() {
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
     camera.position.set(0, 0, 6);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: window.devicePixelRatio < 2, // Only antialias on low-DPI screens
+      alpha: true,
+      powerPreference: "high-performance",
+    });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Slightly higher than before but optimized
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
@@ -216,3 +220,6 @@ export default function HeroScene() {
 
   return <div ref={containerRef} data-testid="hero-3d-canvas" className="absolute inset-0 z-0" />;
 }
+
+const MemoizedHeroScene = memo(HeroScene);
+export default MemoizedHeroScene;

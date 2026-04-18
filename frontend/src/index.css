@@ -172,8 +172,8 @@ h6 {
   height: 3px;
   background: linear-gradient(90deg, #EAFF00, #ffd700, #EAFF00);
   z-index: 9999;
-  width: 0%;
-  transition: width 0.1s ease-out;
+  width: 100%;
+  will-change: transform;
 }
 
 ::selection {
