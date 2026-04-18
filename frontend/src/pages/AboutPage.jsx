@@ -73,7 +73,7 @@ const team = [
     role: "Developer",
     image: "/image/haseeb.png",
     instagram: "https://www.instagram.com/its_malikian/",
-    github: "https://github.com/haseeb318",
+    github: "https://github.com/haseeb318",        
   },
 ];
 
