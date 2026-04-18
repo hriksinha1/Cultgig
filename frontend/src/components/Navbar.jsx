@@ -127,7 +127,7 @@ export default function Navbar() {
                 data-testid="mobile-nav-cta-waitlist"
                 className="text-2xl font-['Syne'] font-bold text-[#EAFF00]"
               >
-                WhatsApp community
+                Join Waitlist
               </Link>
             </motion.div>
           </motion.div>
