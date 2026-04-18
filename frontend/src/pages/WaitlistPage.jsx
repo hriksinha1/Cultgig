@@ -1,10 +1,7 @@
-/* /waitlist — Waitlist signup + stats */
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { setSEO } from '../components/SEOHelmet';
-import { Input } from '../components/ui/input';
-import { CheckCircle2, AlertTriangle, Loader2, Users, Building2, MapPin, Zap, Gift, Shield } from 'lucide-react';
-import { addToWaitlist } from '../lib/appwrite';
+import { Users, Building2, MapPin, Zap, Gift, Shield } from 'lucide-react';
+import WaitlistForm from '../components/WaitlistForm';
 import {
   growthCardStyle,
   handleGrowthCardMouseLeave,
@@ -32,59 +29,6 @@ export default function WaitlistPage() {
     image: 'https://cultgig.com/og-image.jpg',
     type: 'website',
   });
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [whatsapp, setWhatsapp] = useState('');
-  const [role, setRole] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState(null);
-  const [validationMessage, setValidationMessage] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const normalizedEmail = email.trim().toLowerCase();
-    const normalizedWhatsapp = whatsapp.replace(/\D/g, '');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const mobileRegex = /^\d{10}$/;
-
-    if (!name || !normalizedEmail || !normalizedWhatsapp || !role) return;
-    if (!emailRegex.test(normalizedEmail)) {
-      setStatus('error');
-      setValidationMessage('Please enter a valid email address.');
-      return;
-    }
-    if (!mobileRegex.test(normalizedWhatsapp)) {
-      setStatus('error');
-      setValidationMessage('Please enter a valid 10-digit mobile number.');
-      return;
-    }
-
-    setLoading(true);
-    setStatus(null);
-    setValidationMessage('');
-    try {
-      await addToWaitlist({
-        name: name.trim(),
-        email: normalizedEmail,
-        whatsapp: normalizedWhatsapp,
-        role,
-      });
-      setStatus('success');
-      setName(''); setEmail(''); setWhatsapp(''); setRole('');
-    } catch (err) {
-      console.error('[Waitlist Error]', err);
-      if (err.code === 'DUPLICATE_EMAIL' || err.code === 'DUPLICATE_PHONE') {
-        setStatus('duplicate');
-        setValidationMessage(err.message);
-      } else {
-        setStatus('error');
-        setValidationMessage(err.message || 'Unable to submit. Please try again.');
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div data-testid="waitlist-page" className="pt-20">
@@ -139,69 +83,7 @@ export default function WaitlistPage() {
       {/* Form */}
       <section className="pb-20">
         <div className="max-w-xl mx-auto px-6">
-          <form data-testid="waitlist-page-form" onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              data-testid="wp-name-input"
-              type="text" placeholder="Your full name" value={name}
-              onChange={(e) => setName(e.target.value)} required
-              className="bg-[#1a1a1a] border-white/20 rounded-lg h-12 px-4 text-white placeholder:text-[#666] focus-visible:ring-[#EAFF00] focus-visible:border-[#EAFF00] font-['Satoshi']"
-            />
-            <Input
-              data-testid="wp-email-input"
-              type="email" placeholder="your@email.com" value={email}
-              onChange={(e) => setEmail(e.target.value)} required
-              className="bg-[#1a1a1a] border-white/20 rounded-lg h-12 px-4 text-white placeholder:text-[#666] focus-visible:ring-[#EAFF00] focus-visible:border-[#EAFF00] font-['Satoshi']"
-            />
-            <div>
-              <Input
-                data-testid="wp-whatsapp-input"
-                type="tel" placeholder="10-digit mobile number" value={whatsapp}
-                onChange={(e) => setWhatsapp(e.target.value)} required
-                className="bg-[#1a1a1a] border-white/20 rounded-lg h-12 px-4 text-white placeholder:text-[#666] focus-visible:ring-[#EAFF00] focus-visible:border-[#EAFF00] font-['Satoshi']"
-              />
-              <p className="text-xs text-[#666] mt-1.5 ml-1 font-['Satoshi']">Enter only digits, e.g. 9876543210</p>
-            </div>
-            <div className="flex gap-3">
-              <button type="button" data-testid="wp-role-artist" onClick={() => setRole('artist')}
-                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold font-['Satoshi'] transition-all duration-300 border ${role === 'artist' ? 'bg-[#EAFF00]/10 border-[#EAFF00] text-[#EAFF00]' : 'bg-[#1a1a1a] border-white/10 text-[#ffffff] hover:border-white/30'}`}
-              >🎤 Artist / Creator</button>
-              <button type="button" data-testid="wp-role-business" onClick={() => setRole('business')}
-                className={`flex-1 py-3.5 rounded-lg text-sm font-semibold font-['Satoshi'] transition-all duration-300 border ${role === 'business' ? 'bg-[#EAFF00]/10 border-[#EAFF00] text-[#EAFF00]' : 'bg-[#1a1a1a] border-white/10 text-[#ffffff] hover:border-white/30'}`}
-              >🏢 Business / Venue</button>
-            </div>
-            <button type="submit" data-testid="wp-submit-btn" disabled={loading || !name || !email || !whatsapp || !role}
-              className="w-full bg-[#EAFF00] text-black font-bold py-4 rounded-lg text-base shadow-[0_0_20px_rgba(234,255,0,0.4)] hover:shadow-[0_0_40px_rgba(234,255,0,0.6)] hover:bg-[#d4e600] transition-all duration-300 font-['Satoshi'] disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? <span className="flex items-center justify-center gap-2"><Loader2 size={18} className="animate-spin" />Submitting...</span> : 'Join Waitlist'}
-            </button>
-          </form>
-
-          <AnimatePresence mode="wait">
-            {status === 'success' && (
-              <motion.div key="s" data-testid="wp-success" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                className="mt-6 text-center text-[#EAFF00] font-['Satoshi'] text-sm space-y-3">
-                <div className="flex items-center justify-center gap-2">
-                  <CheckCircle2 size={18} />
-                  <span>You're on the waitlist! We'll be in touch soon with more updates.</span>
-                </div>
-              </motion.div>
-            )}
-            {status === 'duplicate' && (
-              <motion.div key="d" data-testid="wp-duplicate" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                className="mt-6 text-center text-amber-400 font-['Satoshi'] text-sm space-y-3">
-                <div className="flex items-center justify-center gap-2">
-                  <AlertTriangle size={18} />
-                  <span>{validationMessage || 'This entry is already registered on our waitlist.'}</span>
-                </div>
-              </motion.div>
-            )}
-            {status === 'error' && (
-              <motion.div key="e" data-testid="wp-error" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                className="mt-6 text-center text-red-400 font-['Satoshi'] text-sm">
-                {validationMessage || 'Something went wrong. Please try again.'}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <WaitlistForm testIdPrefix="wp" buttonText="Join Waitlist" />
           <p className="text-sm text-[#666] mt-6 font-['Satoshi']">Your info is safe with us. No spam, ever.</p>
         </div>
       </section>

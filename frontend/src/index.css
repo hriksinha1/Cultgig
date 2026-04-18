@@ -231,3 +231,39 @@ h6 {
     border-bottom-color: inherit;
   }
 }
+
+/* Phone Input Overrides */
+.react-international-phone-input-container .react-international-phone-country-selector-dropdown {
+  background-color: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  margin-top: 4px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  z-index: 50 !important;
+}
+
+.react-international-phone-country-selector-list-item {
+  background-color: transparent !important;
+  color: white !important;
+  padding: 10px 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.react-international-phone-country-selector-list-item:hover {
+  background-color: rgba(234, 255, 0, 0.1) !important;
+}
+
+.react-international-phone-country-selector-list-item--selected {
+  background-color: rgba(234, 255, 0, 0.2) !important;
+}
+
+.react-international-phone-country-selector-list-item__country-name {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 14px !important;
+}
+
+.react-international-phone-country-selector-list-item__dial-code {
+  color: #666 !important;
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 13px !important;
+}
