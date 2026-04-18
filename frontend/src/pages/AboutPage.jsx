@@ -7,6 +7,11 @@ import {
   Instagram,
   Github,
 } from "lucide-react";
+import {
+  growthCardStyle,
+  handleGrowthCardMouseLeave,
+  handleGrowthCardMouseMove,
+} from "../lib/cardFx";
 
 const timeline = [
   {
@@ -29,46 +34,46 @@ const timeline = [
 
 const team = [
   {
-    name: "Hrik",
-    role: "Designer & Product Head",
+    name: "Hrik Sinha",
+    role: "Product Design & Product Head",
     image: "/image/Hrik - Blue Hoodie.jpeg",
-    instagram: "#",
-    github: "#",
+    instagram: "https://www.instagram.com/hriksinha/",
+    github: "https://github.com/hriksinha1",
   },
   {
-    name: "Debashis",
+    name: "Debashis Ganguly",
     role: "Backend Developer",
     image: "/image/Debashis.jpeg",
-    instagram: "#",
-    github: "#",
+    instagram: "https://www.instagram.com/subho8___/",
+    github: "https://github.com/debashisganguly",
   },
   {
-    name: "Kushall",
-    role: "Developer",
+    name: "Kushall Jain",
+    role: "Backend Developer",
     image: "/image/Kushall.jpeg",
-    instagram: "#",
-    github: "#",
+    instagram: "https://www.instagram.com/kushalljain/",
+    github: "https://github.com/kushallj",
   },
   {
-    name: "Soham",
-    role: "Developer",
+    name: "Soham Dutta",
+    role: "Frontend Developer",
     image: "/image/Soham.jpeg",
-    instagram: "#",
-    github: "#",
+    instagram: "https://www.instagram.com/_dutta_soham_/",
+    github: "https://github.com/sohamdutta",
   },
   {
-    name: "Sounak",
-    role: "Developer",
+    name: "Sounak Nandi",
+    role: "Frontend Developer",
     image: "/image/Sounak.jpeg",
-    instagram: "#",
-    github: "#",
+    instagram: "https://www.instagram.com/sounaknandi/",
+    github: "https://github.com/SaunakNandi",
   },
   {
-    name: "Haseeb",
+    name: "Haseeb Shahzad",
     role: "Developer",
     image: "/image/haseeb.png",
-    instagram: "#",
-    github: "#",
+    instagram: "https://www.instagram.com/its_malikian/",
+    github: "https://github.com/haseeb318",
   },
 ];
 
@@ -161,12 +166,19 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-10 text-center">
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[700px] h-[320px] bg-[#EAFF00]/10 rounded-full blur-[150px]" />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <h2 className="font-['Syne'] text-2xl md:text-4xl font-bold text-white mb-3 text-center">
             Meet the <span className="text-[#EAFF00]">Team</span>
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+          <p className="text-center text-[#ffffff]/70 font-['Satoshi'] text-sm md:text-base mb-12 max-w-2xl mx-auto">
+            The people building cultgig with craft, creativity, and community
+            at the core.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
             {team.map((m, i) => (
               <motion.div
                 key={m.name}
@@ -175,41 +187,64 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 data-testid={`team-card-${i}`}
-                className="bg-[#111111] border border-white/10 rounded-xl p-6 text-center hover:border-[#EAFF00]/50 transition-all duration-300"
+                whileTap={{ scale: 0.99 }}
+                onMouseMove={handleGrowthCardMouseMove}
+                onMouseLeave={handleGrowthCardMouseLeave}
+                style={growthCardStyle}
+                className="group relative bg-gradient-to-b from-[#161616] to-[#0b0b0b] border border-white/10 rounded-2xl p-6 text-center transition-[border-color,box-shadow,transform] duration-300 hover:border-[#EAFF00]/45 hover:shadow-[0_18px_34px_rgba(0,0,0,0.4)] overflow-hidden will-change-transform"
               >
-                <div className="w-16 h-16 rounded-full bg-[#EAFF00]/20 flex items-center justify-center mx-auto mb-4 text-[#EAFF00] font-['Syne'] font-bold text-2xl overflow-hidden">
+                <div
+                  className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background:
+                      "radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 52%)",
+                  }}
+                />
+                <div className="pointer-events-none absolute -left-16 top-0 h-full w-12 rotate-12 bg-white/20 blur-md opacity-0 group-hover:opacity-100 group-hover:translate-x-[280px] transition-all duration-700" />
+
+                <motion.div
+                  whileHover={{ y: -1 }}
+                  transition={{ type: "spring", stiffness: 280, damping: 16 }}
+                  className="relative w-20 h-20 rounded-full ring-2 ring-[#EAFF00]/30 group-hover:ring-[#EAFF00]/70 transition-all flex items-center justify-center mx-auto mb-4 overflow-hidden shadow-[0_0_20px_rgba(234,255,0,0.15)]"
+                >
                   <img
                     src={m.image}
                     alt={m.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                </div>
-                <h4 className="font-['Syne'] text-base font-semibold text-white mb-1">
+                </motion.div>
+                <h4 className="relative font-['Syne'] text-base md:text-lg font-semibold text-white mb-1">
                   {m.name}
                 </h4>
-                <p className="text-[#ffffff] text-xs font-['Satoshi']">
+                <p className="relative text-[#ffffff]/80 text-xs md:text-sm font-['Satoshi'] min-h-[40px] transition-colors duration-300 group-hover:text-white">
                   {m.role}
                 </p>
-                <div className="flex items-center justify-center gap-3 mt-4">
+                <div className="relative flex items-center justify-center gap-3 mt-5">
                   {m.instagram && (
-                    <a
+                    <motion.a
                       href={m.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#ffffff] hover:text-[#EAFF00] transition-colors"
+                      aria-label={`${m.name} Instagram profile`}
+                      className="w-9 h-9 rounded-full border border-white/15 bg-white/5 text-[#ffffff] flex items-center justify-center hover:text-black hover:bg-[#EAFF00] hover:border-[#EAFF00] transition-all duration-300"
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.92 }}
                     >
-                      <Instagram size={14} />
-                    </a>
+                      <Instagram size={16} />
+                    </motion.a>
                   )}
                   {m.github && (
-                    <a
+                    <motion.a
                       href={m.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#ffffff] hover:text-[#EAFF00] transition-colors"
+                      aria-label={`${m.name} GitHub profile`}
+                      className="w-9 h-9 rounded-full border border-white/15 bg-white/5 text-[#ffffff] flex items-center justify-center hover:text-black hover:bg-[#EAFF00] hover:border-[#EAFF00] transition-all duration-300"
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.92 }}
                     >
-                      <Github size={14} />
-                    </a>
+                      <Github size={16} />
+                    </motion.a>
                   )}
                 </div>
               </motion.div>
@@ -232,15 +267,27 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-[#111111] border border-white/10 rounded-xl p-6 text-center hover:border-[#EAFF00]/50 transition-all duration-300"
+                whileTap={{ scale: 0.99 }}
+                onMouseMove={handleGrowthCardMouseMove}
+                onMouseLeave={handleGrowthCardMouseLeave}
+                style={growthCardStyle}
+                className="group relative overflow-hidden bg-gradient-to-b from-[#111111] to-[#0d0d0d] border border-white/10 rounded-xl p-6 text-center hover:border-[#EAFF00]/50 transition-[border-color,box-shadow,transform] duration-300 hover:shadow-[0_16px_28px_rgba(0,0,0,0.35)] will-change-transform"
               >
-                <div className="w-12 h-12 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mx-auto mb-4">
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background:
+                      "radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 56%)",
+                  }}
+                />
+                <div className="pointer-events-none absolute -left-16 top-0 h-full w-10 rotate-12 bg-white/20 blur-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-[220px] transition-all duration-700" />
+                <div className="relative w-12 h-12 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mx-auto mb-4 transition-all duration-300 group-hover:bg-[#EAFF00]/20 group-hover:scale-110">
                   <v.icon size={24} className="text-[#EAFF00]" />
                 </div>
-                <h4 className="font-['Syne'] text-lg font-semibold text-white mb-2">
+                <h4 className="relative font-['Syne'] text-lg font-semibold text-white mb-2">
                   {v.title}
                 </h4>
-                <p className="text-[#ffffff] text-sm font-['Satoshi']">
+                <p className="relative text-[#ffffff] text-sm font-['Satoshi']">
                   {v.desc}
                 </p>
               </motion.div>

@@ -5,6 +5,11 @@ import {
   Mic, CalendarDays, Banknote, Image, Star, BarChart3,
   Search, ClipboardList, CreditCard, ShieldCheck, MessageSquare, CalendarClock
 } from 'lucide-react';
+import {
+  growthCardStyle,
+  handleGrowthCardMouseLeave,
+  handleGrowthCardMouseMove,
+} from '../lib/cardFx';
 
 const artistFeatures = [
   { icon: Mic, title: 'Profile Builder', desc: 'Create a stunning portfolio with photos, videos, audio clips, and your complete body of work.' },
@@ -32,8 +37,19 @@ function FeatureCard({ icon: Icon, title, desc, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="bg-[#111111]/80 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:-translate-y-2 hover:shadow-[0_0_30px_-5px_rgba(234,255,0,0.3)] hover:border-[#EAFF00]/50 transition-all duration-300 group"
+      onMouseMove={handleGrowthCardMouseMove}
+      onMouseLeave={handleGrowthCardMouseLeave}
+      style={growthCardStyle}
+      className="group relative overflow-hidden bg-[#111111]/85 backdrop-blur-xl border border-white/10 rounded-xl p-6 hover:border-[#EAFF00]/50 transition-[border-color,box-shadow,transform] duration-300 hover:shadow-[0_16px_28px_rgba(0,0,0,0.35)] will-change-transform"
     >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background:
+            'radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 56%)',
+        }}
+      />
+      <div className="pointer-events-none absolute -left-16 top-0 h-full w-10 rotate-12 bg-white/20 blur-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-[220px] transition-all duration-700" />
       <div className="w-12 h-12 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mb-4 group-hover:bg-[#EAFF00]/20 transition-colors">
         <Icon size={24} className="text-[#EAFF00]" />
       </div>

@@ -1,6 +1,11 @@
 /* Features section - 2-column layout for Artists & Businesses with glassmorphism cards */
 import { motion } from 'framer-motion';
 import { Mic, CalendarDays, Banknote, Search, ClipboardList, Star } from 'lucide-react';
+import {
+  growthCardStyle,
+  handleGrowthCardMouseLeave,
+  handleGrowthCardMouseMove,
+} from '../lib/cardFx';
 
 const artistFeatures = [
   {
@@ -46,8 +51,19 @@ function FeatureCard({ icon: Icon, title, description, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay: index * 0.12 }}
-      className="bg-[#111111]/80 backdrop-blur-xl border border-white/10 rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_-5px_rgba(234,255,0,0.3)] hover:border-[#EAFF00]/50 group"
+      onMouseMove={handleGrowthCardMouseMove}
+      onMouseLeave={handleGrowthCardMouseLeave}
+      style={growthCardStyle}
+      className="group relative overflow-hidden bg-[#111111]/80 backdrop-blur-xl border border-white/10 rounded-xl p-6 transition-[border-color,box-shadow,transform] duration-300 hover:border-[#EAFF00]/50 hover:shadow-[0_16px_28px_rgba(0,0,0,0.35)] will-change-transform"
     >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background:
+            'radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 56%)',
+        }}
+      />
+      <div className="pointer-events-none absolute -left-16 top-0 h-full w-10 rotate-12 bg-white/20 blur-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-[220px] transition-all duration-700" />
       <div className="w-12 h-12 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mb-4 group-hover:bg-[#EAFF00]/20 transition-colors duration-300">
         <Icon size={24} className="text-[#EAFF00]" />
       </div>

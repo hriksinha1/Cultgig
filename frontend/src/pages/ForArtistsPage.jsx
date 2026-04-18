@@ -2,6 +2,11 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Music, Camera, Laugh, Theater, Palette, Mic, Briefcase, TrendingUp, Shield, DollarSign, Star, MapPin } from 'lucide-react';
+import {
+  growthCardStyle,
+  handleGrowthCardMouseLeave,
+  handleGrowthCardMouseMove,
+} from '../lib/cardFx';
 
 const categories = [
   { icon: Music, label: 'Musicians', emoji: '🎵' },
@@ -61,7 +66,14 @@ export default function ForArtistsPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((c, i) => (
               <motion.div key={c.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}
-                className="bg-[#111111] border border-white/10 rounded-xl p-5 text-center hover:border-[#EAFF00]/50 transition-all duration-300 group">
+                onMouseMove={handleGrowthCardMouseMove}
+                onMouseLeave={handleGrowthCardMouseLeave}
+                style={growthCardStyle}
+                className="group relative overflow-hidden bg-[#111111] border border-white/10 rounded-xl p-5 text-center hover:border-[#EAFF00]/50 transition-[border-color,box-shadow,transform] duration-300 hover:shadow-[0_14px_26px_rgba(0,0,0,0.32)] will-change-transform">
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: 'radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 58%)' }}
+                />
                 <span className="text-3xl block mb-2">{c.emoji}</span>
                 <p className="font-['Satoshi'] text-sm font-semibold text-white group-hover:text-[#EAFF00] transition-colors">{c.label}</p>
               </motion.div>
@@ -79,7 +91,14 @@ export default function ForArtistsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {benefits.map((b, i) => (
               <motion.div key={b.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="bg-[#111111] border border-white/10 rounded-xl p-6 hover:border-[#EAFF00]/50 hover:-translate-y-1 transition-all duration-300">
+                onMouseMove={handleGrowthCardMouseMove}
+                onMouseLeave={handleGrowthCardMouseLeave}
+                style={growthCardStyle}
+                className="group relative overflow-hidden bg-[#111111] border border-white/10 rounded-xl p-6 hover:border-[#EAFF00]/50 transition-[border-color,box-shadow,transform] duration-300 hover:shadow-[0_14px_26px_rgba(0,0,0,0.32)] will-change-transform">
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: 'radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 58%)' }}
+                />
                 <div className="w-12 h-12 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mb-4">
                   <b.icon size={24} className="text-[#EAFF00]" />
                 </div>
@@ -101,7 +120,14 @@ export default function ForArtistsPage() {
             {mockArtists.map((a, i) => (
               <motion.div key={a.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
                 data-testid={`artist-card-${i}`}
-                className="bg-[#111111] border border-white/10 rounded-xl p-5 hover:border-[#EAFF00]/50 transition-all duration-300">
+                onMouseMove={handleGrowthCardMouseMove}
+                onMouseLeave={handleGrowthCardMouseLeave}
+                style={growthCardStyle}
+                className="group relative overflow-hidden bg-[#111111] border border-white/10 rounded-xl p-5 hover:border-[#EAFF00]/50 transition-[border-color,box-shadow,transform] duration-300 hover:shadow-[0_14px_26px_rgba(0,0,0,0.32)] will-change-transform">
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: 'radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 58%)' }}
+                />
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full bg-[#EAFF00]/20 flex items-center justify-center text-[#EAFF00] font-['Syne'] font-bold text-lg">
                     {a.name.charAt(0)}
