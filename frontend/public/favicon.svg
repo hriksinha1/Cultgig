@@ -1,0 +1,15 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Black background with rounded corners -->
+  <rect width="512" height="512" rx="120" fill="#000000"/>
+  
+  <!-- Neon yellow "G" logo -->
+  <g fill="none" stroke="#EAFF00" stroke-width="45" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer G shape -->
+    <path d="M 150 150 L 150 362 L 300 362 L 300 256 L 220 256"/>
+    <!-- Inner connecting bar -->
+    <path d="M 300 256 L 360 256"/>
+  </g>
+  
+  <!-- Accent circle (top right) -->
+  <circle cx="360" cy="90" r="35" fill="#EAFF00"/>
+</svg>
