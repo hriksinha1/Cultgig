@@ -1,5 +1,6 @@
 /* TermsOfServicePage - /terms-of-service - Legal text with sidebar nav */
 import { motion } from 'framer-motion';
+import { setSEO } from '../components/SEOHelmet';
 
 const sections = [
   { id: 'acceptance', title: 'Acceptance of Terms', content: 'By accessing or using the cultgig platform (website and mobile application), you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you may not access or use the platform. cultgig reserves the right to update these terms at any time, and continued use of the platform constitutes acceptance of any changes.' },
@@ -11,6 +12,15 @@ const sections = [
 ];
 
 export default function TermsOfServicePage() {
+  setSEO({
+    title: 'Terms of Service - cultgig Legal Agreement',
+    description: 'cultgig terms of service. Read and understand our platform rules, liability, and user agreements.',
+    keywords: 'terms of service, legal agreement, platform rules, user agreement, cultig terms',
+    url: 'https://cultgig.com/terms-of-service',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   const handleScrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });

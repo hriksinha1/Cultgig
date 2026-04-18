@@ -1,5 +1,6 @@
 /* AboutPage - /about - Company story, team, and values */
 import { motion } from "framer-motion";
+import { setSEO } from "../components/SEOHelmet";
 import {
   Sparkles,
   HeartHandshake,
@@ -96,6 +97,15 @@ const values = [
 ];
 
 export default function AboutPage() {
+  setSEO({
+    title: 'About Us - The Story Behind cultgig',
+    description: 'Meet the team building cultgig. Our mission is to bridge the gap between talented artists and businesses that need them. Learn our story and values.',
+    keywords: 'about cultgig, team, mission, values, company story',
+    url: 'https://cultgig.com/about',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   return (
     <div data-testid="about-page" className="pt-20">
       {/* Hero */}
@@ -104,7 +114,9 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-6">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
             className="font-['Syne'] text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter text-white mb-6"
           >
             We're Building the Future of{" "}
@@ -112,8 +124,9 @@ export default function AboutPage() {
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
             className="text-lg text-[#ffffff] font-['Satoshi'] max-w-2xl mx-auto leading-relaxed"
           >
             cultgig was born from a simple frustration: talented artists
@@ -127,9 +140,15 @@ export default function AboutPage() {
       {/* Our Story Timeline */}
       <section className="py-16 bg-[#0a0a0a]">
         <div className="max-w-3xl mx-auto px-6">
-          <h2 className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-12 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+            className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-12 text-center"
+          >
             Our <span className="text-[#EAFF00]">Story</span>
-          </h2>
+          </motion.h2>
           <div className="space-y-0">
             {timeline.map((t, i) => (
               <motion.div
@@ -137,7 +156,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.15, ease: [0.34, 1.56, 0.64, 1] }}
                 className="flex gap-6 relative"
               >
                 {i < timeline.length - 1 && (
@@ -166,38 +185,39 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[700px] h-[320px] bg-[#EAFF00]/10 rounded-full blur-[150px]" />
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[500px] md:w-[700px] h-[250px] md:h-[320px] bg-[#EAFF00]/15 rounded-full blur-[150px]" />
         </div>
         <div className="max-w-7xl mx-auto px-6 relative">
-          <h2 className="font-['Syne'] text-2xl md:text-4xl font-bold text-white mb-3 text-center">
+          <h2 className="font-['Syne'] text-3xl md:text-4xl font-bold text-white mb-3 text-center">
             Meet the <span className="text-[#EAFF00]">Team</span>
           </h2>
-          <p className="text-center text-[#ffffff]/70 font-['Satoshi'] text-sm md:text-base mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-[#ffffff]/70 font-['Satoshi'] text-base md:text-base mb-12 max-w-2xl mx-auto">
             The people building cultgig with craft, creativity, and community
             at the core.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 md:gap-6">
             {team.map((m, i) => (
               <motion.div
                 key={m.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.1, ease: [0.34, 1.56, 0.64, 1] }}
                 data-testid={`team-card-${i}`}
-                whileTap={{ scale: 0.99 }}
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ y: -8 }}
                 onMouseMove={handleGrowthCardMouseMove}
                 onMouseLeave={handleGrowthCardMouseLeave}
                 style={growthCardStyle}
-                className="group relative bg-gradient-to-b from-[#161616] to-[#0b0b0b] border border-white/10 rounded-2xl p-6 text-center transition-[border-color,box-shadow,transform] duration-300 hover:border-[#EAFF00]/45 hover:shadow-[0_18px_34px_rgba(0,0,0,0.4)] overflow-hidden will-change-transform"
+                className="group relative bg-gradient-to-b from-[#161616] to-[#0b0b0b] border border-white/20 md:border-white/10 rounded-2xl p-4 md:p-6 text-center transition-[border-color,box-shadow,transform] duration-300 hover:border-[#EAFF00]/45 hover:shadow-[0_18px_34px_rgba(0,0,0,0.4)] overflow-hidden will-change-transform"
               >
                 <div
                   className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
                     background:
-                      "radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 52%)",
+                      "radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.3), transparent 52%)",
                   }}
                 />
                 <div className="pointer-events-none absolute -left-16 top-0 h-full w-12 rotate-12 bg-white/20 blur-md opacity-0 group-hover:opacity-100 group-hover:translate-x-[280px] transition-all duration-700" />
@@ -205,7 +225,7 @@ export default function AboutPage() {
                 <motion.div
                   whileHover={{ y: -1 }}
                   transition={{ type: "spring", stiffness: 280, damping: 16 }}
-                  className="relative w-20 h-20 rounded-full ring-2 ring-[#EAFF00]/30 group-hover:ring-[#EAFF00]/70 transition-all flex items-center justify-center mx-auto mb-4 overflow-hidden shadow-[0_0_20px_rgba(234,255,0,0.15)]"
+                  className="relative w-24 md:w-20 h-24 md:h-20 rounded-full ring-2 ring-[#EAFF00]/30 group-hover:ring-[#EAFF00]/70 transition-all flex items-center justify-center mx-auto mb-4 overflow-hidden shadow-[0_0_20px_rgba(234,255,0,0.15)]"
                 >
                   <img
                     src={m.image}
@@ -213,24 +233,24 @@ export default function AboutPage() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </motion.div>
-                <h4 className="relative font-['Syne'] text-base md:text-lg font-semibold text-white mb-1">
+                <h4 className="relative font-['Syne'] text-lg md:text-lg font-extrabold md:font-semibold text-white mb-1">
                   {m.name}
                 </h4>
-                <p className="relative text-[#ffffff]/80 text-xs md:text-sm font-['Satoshi'] min-h-[40px] transition-colors duration-300 group-hover:text-white">
+                <p className="relative text-[#ffffff]/80 text-sm md:text-sm font-['Satoshi'] min-h-[40px] md:min-h-[40px] transition-colors duration-300 group-hover:text-white">
                   {m.role}
                 </p>
-                <div className="relative flex items-center justify-center gap-3 mt-5">
+                <div className="relative flex items-center justify-center gap-3 md:gap-3 mt-5">
                   {m.instagram && (
                     <motion.a
                       href={m.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${m.name} Instagram profile`}
-                      className="w-9 h-9 rounded-full border border-white/15 bg-white/5 text-[#ffffff] flex items-center justify-center hover:text-black hover:bg-[#EAFF00] hover:border-[#EAFF00] transition-all duration-300"
-                      whileHover={{ y: -3 }}
+                      className="w-10 md:w-9 h-10 md:h-9 rounded-full border border-white/15 bg-white/5 text-[#ffffff] flex items-center justify-center hover:text-black hover:bg-[#EAFF00] hover:border-[#EAFF00] transition-all duration-300"
+                      whileHover={{ y: -3, scale: 1.1 }}
                       whileTap={{ scale: 0.92 }}
                     >
-                      <Instagram size={16} />
+                      <Instagram size={20} className="md:w-4 md:h-4" />
                     </motion.a>
                   )}
                   {m.github && (
@@ -239,11 +259,11 @@ export default function AboutPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${m.name} GitHub profile`}
-                      className="w-9 h-9 rounded-full border border-white/15 bg-white/5 text-[#ffffff] flex items-center justify-center hover:text-black hover:bg-[#EAFF00] hover:border-[#EAFF00] transition-all duration-300"
-                      whileHover={{ y: -3 }}
+                      className="w-10 md:w-9 h-10 md:h-9 rounded-full border border-white/15 bg-white/5 text-[#ffffff] flex items-center justify-center hover:text-black hover:bg-[#EAFF00] hover:border-[#EAFF00] transition-all duration-300"
+                      whileHover={{ y: -3, scale: 1.1 }}
                       whileTap={{ scale: 0.92 }}
                     >
-                      <Github size={16} />
+                      <Github size={20} className="md:w-4 md:h-4" />
                     </motion.a>
                   )}
                 </div>
@@ -256,18 +276,25 @@ export default function AboutPage() {
       {/* Values */}
       <section className="py-16 bg-[#0a0a0a]">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-10 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+            className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-10 text-center"
+          >
             Our <span className="text-[#EAFF00]">Values</span>
-          </h2>
+          </motion.h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {values.map((v, i) => (
               <motion.div
                 key={v.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.12, ease: [0.34, 1.56, 0.64, 1] }}
                 whileTap={{ scale: 0.99 }}
+                whileHover={{ y: -6 }}
                 onMouseMove={handleGrowthCardMouseMove}
                 onMouseLeave={handleGrowthCardMouseLeave}
                 style={growthCardStyle}

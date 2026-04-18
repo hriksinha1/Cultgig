@@ -1,6 +1,7 @@
 /* ForArtistsPage - /for-artists - Dedicated page for artist audience */
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { setSEO } from '../components/SEOHelmet';
 import { Music, Camera, Laugh, Theater, Palette, Mic, Briefcase, TrendingUp, Shield, DollarSign, Star, MapPin } from 'lucide-react';
 import {
   growthCardStyle,
@@ -34,6 +35,15 @@ const mockArtists = [
 ];
 
 export default function ForArtistsPage() {
+  setSEO({
+    title: 'For Artists - Get Booked, Perform, Get Paid',
+    description: 'Your stage is everywhere. Join cultgig to get discovered by venues, manage bookings, and build your career. Musicians, photographers, comedians, and creators welcome.',
+    keywords: 'artists, get booked, find gigs, music booking, talent platform',
+    url: 'https://cultgig.com/for-artists',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   return (
     <div data-testid="for-artists-page" className="pt-20">
       {/* Hero */}

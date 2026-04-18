@@ -1,6 +1,7 @@
 /* ContactPage - /contact - Contact info + form (frontend-only) */
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { setSEO } from "../components/SEOHelmet";
 import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
 import { Instagram, Linkedin, Loader2 } from "lucide-react";
 import { Input } from "../components/ui/input";
@@ -50,7 +51,7 @@ const contactInfo = [
     href: "mailto:thecultgig@gmail.com",
   },
   { icon: Phone, label: "WhatsApp: +91 8777014146", href: "#" },
-  { icon: MapPin, label: "Mumbai, India", href: "#" },
+  { icon: MapPin, label: "Bangalore, India", href: "#" },
 ];
 
 const socials = [
@@ -61,6 +62,15 @@ const socials = [
 ];
 
 export default function ContactPage() {
+  setSEO({
+    title: 'Contact Us - Get in Touch with cultgig',
+    description: "Have questions about cultgig? Contact our team. We're here to help artists and venues succeed.",
+    keywords: 'contact, support, contact us, customer support',
+    url: 'https://cultgig.com/contact',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");

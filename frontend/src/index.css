@@ -24,6 +24,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 body {
@@ -33,6 +34,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background-attachment: fixed;
 }
 
 h1,
@@ -44,26 +46,158 @@ h6 {
   font-family: "Syne", sans-serif;
 }
 
+/* Modern scroll animation utilities */
+@layer components {
+  /* Smooth transitions for all interactive elements */
+  button,
+  a,
+  [role="button"] {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Stagger animation for lists */
+  .stagger-container > * {
+    @apply will-change-transform;
+  }
+
+  /* Parallax layer for background elements */
+  .parallax-slow {
+    @apply will-change-transform;
+  }
+
+  /* Smooth card transitions */
+  .scroll-card {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  /* Enhanced focus states for a11y */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-[#EAFF00];
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Keyframe animations for modern scroll effects */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-5deg) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Smooth scroll progress indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #EAFF00, #ffd700, #EAFF00);
+  z-index: 9999;
+  width: 0%;
+  transition: width 0.1s ease-out;
+}
+
 ::selection {
   background-color: rgba(234, 255, 0, 0.3);
   color: #ffffff;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: linear-gradient(180deg, rgba(234, 255, 0, 0.05), transparent);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(234, 255, 0, 0.3);
-  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(234, 255, 0, 0.5), rgba(234, 255, 0, 0.3));
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(234, 255, 0, 0.5);
+  background: linear-gradient(180deg, rgba(234, 255, 0, 0.8), rgba(234, 255, 0, 0.6));
+  box-shadow: 0 0 10px rgba(234, 255, 0, 0.4);
 }
 
 @layer base {

@@ -1,6 +1,7 @@
 /* HowItWorksPage - /how-it-works - 4-step vertical timeline + FAQ */
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { setSEO } from '../components/SEOHelmet';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import { UserPlus, Eye, CalendarCheck, CreditCard, FileText, BookOpen, PartyPopper, ThumbsUp, ChevronDown } from 'lucide-react';
 
@@ -97,6 +98,15 @@ function FaqItem({ faq, index }) {
 }
 
 export default function HowItWorksPage() {
+  setSEO({
+    title: 'How It Works - Simple Steps to Success',
+    description: 'Learn how cultgig works. Whether you\'re an artist or a business, get started in simple steps. Connect, collaborate, and grow.',
+    keywords: 'how it works, getting started, artist benefits, venue benefits, gig process',
+    url: 'https://cultgig.com/how-it-works',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   return (
     <div data-testid="how-it-works-page" className="pt-20">
       {/* Hero */}

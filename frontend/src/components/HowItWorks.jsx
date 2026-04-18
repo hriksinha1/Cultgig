@@ -48,33 +48,58 @@ const businessSteps = [
 function StepCard({ step, index, total }) {
   return (
     <div className="flex-1 flex flex-col items-center relative">
-      {/* Dashed connector line between steps */}
+      {/* Dashed connector line between steps - with animation */}
       {index < total - 1 && (
-        <div className="hidden md:block absolute top-7 left-[calc(50%+28px)] right-[calc(-50%+28px)] timeline-connector" />
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.2 + 0.3, duration: 0.6 }}
+          className="hidden md:block absolute top-7 left-[calc(50%+28px)] right-[calc(-50%+28px)] timeline-connector origin-left"
+        />
       )}
 
-      {/* Step number circle */}
+      {/* Step number circle - enhanced animation */}
       <motion.div
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
+        initial={{ scale: 0, rotate: -180 }}
+        whileInView={{ scale: 1, rotate: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: index * 0.15, type: 'spring' }}
-        className="w-14 h-14 rounded-full bg-[#EAFF00] flex items-center justify-center mb-6 z-10"
+        transition={{
+          duration: 0.6,
+          delay: index * 0.15,
+          type: "spring",
+          stiffness: 200,
+          damping: 20,
+          ease: [0.34, 1.56, 0.64, 1],
+        }}
+        whileHover={{ scale: 1.1, boxShadow: "0 0 30px rgba(234,255,0,0.3)" }}
+        className="w-14 h-14 rounded-full bg-[#EAFF00] flex items-center justify-center mb-6 z-10 transition-all duration-300"
       >
         <span className="font-['Syne'] text-black font-extrabold text-lg">{step.num}</span>
       </motion.div>
 
-      {/* Icon */}
-      <div className="w-10 h-10 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mb-4">
+      {/* Icon - enhanced animation */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.15 + 0.1, duration: 0.4 }}
+        whileHover={{ scale: 1.2, rotate: 5 }}
+        className="w-10 h-10 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mb-4 transition-all duration-300"
+      >
         <step.icon size={20} className="text-[#EAFF00]" />
-      </div>
+      </motion.div>
 
-      {/* Content */}
+      {/* Content - smooth entrance */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
+        transition={{
+          duration: 0.5,
+          delay: index * 0.15 + 0.2,
+          ease: [0.34, 1.56, 0.64, 1],
+        }}
         className="text-center"
       >
         <h4 className="font-['Syne'] text-xl font-semibold text-white mb-2">{step.title}</h4>
@@ -99,18 +124,29 @@ export default function HowItWorks() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
           className="text-center mb-16"
         >
-          <h2
+          <motion.h2
             data-testid="how-it-works-headline"
             className="font-['Syne'] text-3xl md:text-5xl tracking-tight font-bold text-white mb-4"
+            animate={{ opacity: [0.8, 1, 0.8] }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           >
             How <span className="text-[#EAFF00]">cultgig</span> Works
-          </h2>
-          <p className="text-[#ffffff] text-lg font-['Satoshi'] max-w-xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-[#ffffff] text-lg font-['Satoshi'] max-w-xl mx-auto"
+          >
             Three simple steps to connect talent with opportunity.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Tabs using Shadcn */}

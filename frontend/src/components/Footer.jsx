@@ -39,8 +39,8 @@ const legalLinks = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, label: 'Instagram', href: '#' },
-  { icon: XIcon, label: 'Twitter/X', href: '#' },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/cultgig/' },
+  { icon: XIcon, label: 'Twitter/X', href: 'https://x.com/cultgig_' },
   { icon: TikTokIcon, label: 'TikTok', href: '#' },
   { icon: Linkedin, label: 'LinkedIn', href: '#' },
 ];

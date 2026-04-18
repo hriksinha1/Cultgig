@@ -1,6 +1,7 @@
 /* /waitlist — Waitlist signup + stats */
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { setSEO } from '../components/SEOHelmet';
 import { Input } from '../components/ui/input';
 import { CheckCircle2, AlertTriangle, Loader2, Users, Building2, MapPin, Zap, Gift, Shield } from 'lucide-react';
 import { addToWaitlist } from '../lib/appwrite';
@@ -23,6 +24,15 @@ const benefits = [
 ];
 
 export default function WaitlistPage() {
+  setSEO({
+    title: 'Join the Waitlist - Be First to Experience cultgig',
+    description: 'Join cultgig\'s exclusive waitlist and be among the first to experience the future of talent discovery. Early access to artists and venues.',
+    keywords: 'waitlist, early access, join cultgig, beta access',
+    url: 'https://cultgig.com/waitlist',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [whatsapp, setWhatsapp] = useState('');

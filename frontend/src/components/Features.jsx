@@ -47,10 +47,18 @@ function FeatureCard({ icon: Icon, title, description, index }) {
   return (
     <motion.div
       data-testid={`feature-card-${title.toLowerCase().replace(/\s/g, '-')}`}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, delay: index * 0.12 }}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.12,
+        ease: [0.34, 1.56, 0.64, 1],
+      }}
+      whileHover={{
+        y: -8,
+        transition: { duration: 0.3, ease: [0.34, 1.56, 0.64, 1] },
+      }}
       onMouseMove={handleGrowthCardMouseMove}
       onMouseLeave={handleGrowthCardMouseLeave}
       style={growthCardStyle}
@@ -60,13 +68,17 @@ function FeatureCard({ icon: Icon, title, description, index }) {
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
           background:
-            'radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 56%)',
+            "radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(234,255,0,0.2), transparent 56%)",
         }}
       />
       <div className="pointer-events-none absolute -left-16 top-0 h-full w-10 rotate-12 bg-white/20 blur-sm opacity-0 group-hover:opacity-100 group-hover:translate-x-[220px] transition-all duration-700" />
-      <div className="w-12 h-12 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mb-4 group-hover:bg-[#EAFF00]/20 transition-colors duration-300">
+      <motion.div
+        className="w-12 h-12 rounded-lg bg-[#EAFF00]/10 flex items-center justify-center mb-4 group-hover:bg-[#EAFF00]/20 transition-colors duration-300"
+        whileHover={{ scale: 1.15, rotate: 5 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
         <Icon size={24} className="text-[#EAFF00]" />
-      </div>
+      </motion.div>
       <h4 className="font-['Syne'] text-xl font-semibold text-white mb-2">{title}</h4>
       <p className="text-[#ffffff] text-base leading-relaxed font-['Satoshi']">{description}</p>
     </motion.div>
@@ -89,20 +101,31 @@ export default function Features() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
           className="text-center mb-16"
         >
-          <h2
+          <motion.h2
             data-testid="features-headline"
             className="font-['Syne'] text-3xl md:text-5xl tracking-tight font-bold text-white mb-4"
+            animate={{ opacity: [0.8, 1, 0.8] }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           >
-            Everything You Need to{' '}
-            <span className="text-[#EAFF00]">Shine</span> or{' '}
+            Everything You Need to{" "}
+            <span className="text-[#EAFF00]">Shine</span> or{" "}
             <span className="text-[#EAFF00]">Scout</span>
-          </h2>
-          <p className="text-[#ffffff] text-lg font-['Satoshi'] max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-[#ffffff] text-lg font-['Satoshi'] max-w-2xl mx-auto"
+          >
             Whether you're a performer looking for your next stage or a venue searching for the perfect act.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* 2-Column Layout */}
@@ -110,13 +133,21 @@ export default function Features() {
           {/* For Artists */}
           <div>
             <motion.h3
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
               className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-8 flex items-center gap-3"
             >
-              <span className="w-2 h-8 bg-[#EAFF00] rounded-full inline-block" />
+              <motion.span
+                className="w-2 h-8 bg-[#EAFF00] rounded-full inline-block"
+                animate={{ scaleY: [1, 1.2, 1] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
               For Artists & Creators
             </motion.h3>
             <div className="flex flex-col gap-5">
@@ -129,13 +160,21 @@ export default function Features() {
           {/* For Businesses */}
           <div>
             <motion.h3
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
               className="font-['Syne'] text-2xl md:text-3xl font-bold text-white mb-8 flex items-center gap-3"
             >
-              <span className="w-2 h-8 bg-[#EAFF00] rounded-full inline-block" />
+              <motion.span
+                className="w-2 h-8 bg-[#EAFF00] rounded-full inline-block"
+                animate={{ scaleY: [1, 1.2, 1] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
               For Businesses & Venues
             </motion.h3>
             <div className="flex flex-col gap-5">

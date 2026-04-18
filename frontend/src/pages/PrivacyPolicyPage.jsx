@@ -1,5 +1,6 @@
 /* PrivacyPolicyPage - /privacy-policy - Legal text with sidebar nav */
 import { motion } from 'framer-motion';
+import { setSEO } from '../components/SEOHelmet';
 
 const sections = [
   { id: 'data-collection', title: 'Data Collection', content: 'cultgig collects personal information you voluntarily provide when registering, creating a profile, booking talent, or contacting us. This includes your name, email address, phone/WhatsApp number, location, payment details, and profile media (photos, videos, audio). We also automatically collect device information, IP addresses, browser type, and usage analytics when you interact with our platform.' },
@@ -11,6 +12,15 @@ const sections = [
 ];
 
 export default function PrivacyPolicyPage() {
+  setSEO({
+    title: 'Privacy Policy - cultgig',
+    description: "Read cultgig's privacy policy. We're committed to protecting your personal data and privacy.",
+    keywords: 'privacy policy, data protection, privacy',
+    url: 'https://cultgig.com/privacy-policy',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   const handleScrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });

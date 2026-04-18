@@ -1,6 +1,7 @@
 /* ForBusinessesPage - /for-businesses - Dedicated page for venue/business audience */
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { setSEO } from '../components/SEOHelmet';
 import { UtensilsCrossed, Coffee, Hotel, Tent, Clapperboard, Building, Search, ShieldCheck, CreditCard, BarChart3, Star, MapPin } from 'lucide-react';
 import {
   growthCardStyle,
@@ -34,6 +35,15 @@ const mockBusinesses = [
 ];
 
 export default function ForBusinessesPage() {
+  setSEO({
+    title: 'For Businesses - Find & Hire Perfect Talent',
+    description: 'Discover verified local and global talent for your venue or business. Manage bookings, secure payments, and build your event with cultgig.',
+    keywords: 'hire talent, book performers, event entertainment, musicians for hire, talent booking',
+    url: 'https://cultgig.com/for-businesses',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   return (
     <div data-testid="for-businesses-page" className="pt-20">
       {/* Hero */}

@@ -1,4 +1,4 @@
-/* cultgig Landing Page - Minimal custom styles */
+/* cultgig Landing Page - Modern scroll animations and effects */
 /* Most styling is handled by Tailwind utility classes */
 
 /* Glow pulse animation for primary CTA buttons */
@@ -15,7 +15,7 @@
   animation: glowPulse 3s ease-in-out infinite;
 }
 
-/* Scroll down arrow bounce */
+/* Enhanced scroll down arrow bounce */
 @keyframes bounceDown {
   0%, 100% {
     transform: translateY(0);
@@ -31,14 +31,67 @@
   animation: bounceDown 2s ease-in-out infinite;
 }
 
-/* Dashed timeline connector */
-.timeline-connector {
-  border-top: 2px dashed rgba(234, 255, 0, 0.4);
+/* Modern smooth fade animations */
+@keyframes smoothFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Phone mockup glow */
+@keyframes smoothFadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUpStagger {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth entrance animations */
+.fade-in-up {
+  animation: smoothFadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ease-out forwards;
+}
+
+.fade-in-scale {
+  animation: smoothFadeInScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ease-out forwards;
+}
+
+.slide-up-stagger {
+  animation: slideUpStagger 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ease-out forwards;
+}
+
+/* Dashed timeline connector with smooth animation */
+.timeline-connector {
+  border-top: 2px dashed rgba(234, 255, 0, 0.4);
+  transition: border-color 0.3s ease-out;
+}
+
+.timeline-connector:hover {
+  border-color: rgba(234, 255, 0, 0.8);
+}
+
+/* Enhanced Phone mockup glow with smooth transitions */
 .phone-glow {
   position: relative;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) ease-out;
 }
 
 .phone-glow::after {
@@ -48,10 +101,96 @@
   background: radial-gradient(circle, rgba(234, 255, 0, 0.08) 0%, transparent 70%);
   z-index: -1;
   pointer-events: none;
+  transition: opacity 0.4s ease-out;
 }
 
-/* Glass card styles for select dropdown */
+.phone-glow:hover::after {
+  opacity: 1.5;
+}
+
+/* Glass card styles with enhanced transitions */
 .cultgig-select-content {
   background: #1a1a1a !important;
   border: 1px solid rgba(234, 255, 0, 0.2) !important;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) ease-out;
+}
+
+.cultgig-select-content:hover {
+  border-color: rgba(234, 255, 0, 0.4) !important;
+  background: rgba(26, 26, 26, 0.95) !important;
+}
+
+/* Smooth scroll anchor links - enhanced */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section entrance animation - staggered */
+section {
+  --animation-delay: 0;
+}
+
+section:nth-child(1) { --animation-delay: 0ms; }
+section:nth-child(2) { --animation-delay: 100ms; }
+section:nth-child(3) { --animation-delay: 200ms; }
+section:nth-child(4) { --animation-delay: 300ms; }
+
+/* Cards with modern hover effects */
+.scroll-card {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) ease-out;
+  transform-origin: center;
+}
+
+.scroll-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Parallax background effect */
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  transition: background-position 0.3s ease-out;
+}
+
+/* Enhanced transitions for all elements */
+* {
+  --transition-duration: 300ms;
+  --transition-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Stagger animation for element lists */
+@keyframes staggerIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-item {
+  animation: staggerIn 0.5s var(--transition-timing) ease-out backwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0ms; }
+.stagger-item:nth-child(2) { animation-delay: 100ms; }
+.stagger-item:nth-child(3) { animation-delay: 200ms; }
+.stagger-item:nth-child(4) { animation-delay: 300ms; }
+.stagger-item:nth-child(5) { animation-delay: 400ms; }
+.stagger-item:nth-child(6) { animation-delay: 500ms; }
+.stagger-item:nth-child(7) { animation-delay: 600ms; }
+.stagger-item:nth-child(8) { animation-delay: 700ms; }
+
+/* Smooth hover transform */
+.smooth-hover {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) ease-out,
+              box-shadow 0.3s ease-out,
+              border-color 0.3s ease-out;
+}
+
+.smooth-hover:hover {
+  transform: translateY(-2px) scale(1.01);
 }

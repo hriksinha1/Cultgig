@@ -1,6 +1,7 @@
 /* FeaturesPage - /features - Full dedicated features page */
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { setSEO } from '../components/SEOHelmet';
 import {
   Mic, CalendarDays, Banknote, Image, Star, BarChart3,
   Search, ClipboardList, CreditCard, ShieldCheck, MessageSquare, CalendarClock
@@ -60,6 +61,15 @@ function FeatureCard({ icon: Icon, title, desc, index }) {
 }
 
 export default function FeaturesPage() {
+  setSEO({
+    title: 'Features - Everything You Need to Shine or Scout',
+    description: 'Discover cultgig\'s powerful features for artists and venues. Manage gigs, showcase your talent, and connect with the right opportunities.',
+    keywords: 'features, booking features, artist tools, venue management, gig features',
+    url: 'https://cultgig.com/features',
+    image: 'https://cultgig.com/og-image.jpg',
+    type: 'website',
+  });
+
   return (
     <div data-testid="features-page" className="pt-20">
       {/* Hero Banner */}
